@@ -3,19 +3,23 @@
 var optimist = require('optimist');
 var sh = require('shelljs');
 var path = require('path');
+var Config = require('../lib/config');
 
 var argv = optimist.options({
+    config: {
+      description: 'Path to jekyll _config.yml file. (default: ./_config.yml)'
+    },
+    package: {
+      description: 'Path to package.json. (default: ./package.json)'
+    },
+    dox: {
+      description: 'Generate api documentation using dox.'
+    },
     setup: {
-      description: 'Bootstrap module documentation.'
+      description: 'Generate an empty sldocs / jekyll site at the provided path. Eg. sldocs --setup docs --config _config.yml'
     },
-    help: {
-      description: 'Show this help message, then exit.'
-    },
-    preview: {
-      description: 'Build the docs and open them in a browser.'
-    },
-    build: {
-      description: 'Build the docs.'
+    toc: {
+      description: 'Update the table of contents in `--config` (_config.yml).'
     }
   })
   .argv;
@@ -25,50 +29,48 @@ if (argv.help) {
   process.exit();
 }
 
-var pkgRoot = process.cwd();
-
 if(argv.setup) {
-  var pf = path.join(pkgRoot, 'package.json');
+  var dest = 
+    typeof argv.setup === 'string'
+      ? argv.setup
+      : 'docs'
+      ;
   
-  try {
-    var pkg = require(pf);
-  } catch(e) {
-    console.error('could not load package json from', pf);
-  }
+  Config.setup(dest, argv.config);
+} else if(config || sh.test('-f', '_config.yml')) {
+  var config = new Config(argv.config);
   
-  console.log('Bootstrapping module documentation for %s.', pkg.name);
-  
-  if(sh.test('-d', 'docs')) {
-    console.log('docs alreay exists... please remove and try again.');
-  } else {    
-    sh.cp('-R', path.join(__dirname, '..', 'template', '*'), path.join(pkgRoot, 'docs'));
-    console.log('created...')
-  }
-}
-
-if(argv.serve) {
-  var open = require('opener');
-  var spawn = require('child_process').spawn;
-  process.chdir('docs');
-  
-  console.log('jekyll serve');
-  spawn('jekyll', ['serve'])
-    .stdout.on('data', function (data) {
-      console.log(data.toString());
+  if(argv.dox) {
+    config.genApiDocs(log, function (err) {
+      if(err) throw err;
     });
+  }
+  
+  if(argv.toc) {
+    config.updateTableOfContents();
+  }
+} else {
+  console.error('Please run:');
+  console.error('   sldocs --setup');
 }
 
-if(argv.preview) {
-  var open = require('opener');
-  open('http://localhost:4000');
-}
+/*
 
-if(argv.build) {
-  build();
-}
+log()
 
-function build() {
-  console.log('building docs... with config');
-  var config = sh.cat(path.join(pkgRoot, 'docs', '_config.yml'));
-  console.log(config);
+Example:
+
+    log(1, 2, 3);
+    log(new Error()) => print to std.err
+
+
+*/
+
+
+function log() {
+  if(arguments[0] instanceof Error) {
+    console.error()
+  }
+  
+  console.log.apply();
 }

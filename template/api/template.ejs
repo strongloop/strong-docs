@@ -1,0 +1,67 @@
+
+  <%
+  /*
+    provide a template to render each jsdoc style annotation
+
+    available data:
+
+    - comment - see https://github.com/visionmedia/dox
+    - file - the filename the annotation was parsed from
+    - name - the name of the file without file extension
+
+    output:
+
+    - this template may contain HTML and or Markdown
+  */
+  %>
+  <div class="note info api">
+    <h5 class="api">
+      <a name="<%= comment.ctx.name %>" class="anchor" href="{{ page.url }}#<%= comment.ctx.name %>">
+        <span class="anchor-icn">#</span>
+      </a>
+      <%= comment.ctx.string %>
+    </h5>
+  </div>
+  <%
+  var attrs = [
+    'types',
+    'name',
+    'description',
+    'local',
+    'string',
+    'calls',
+    'key',
+    'value',
+    'context',
+    'source'
+  ];
+  %>
+  <ul class="api-tags">
+  <% comment.tags.forEach(function (tag) { %>
+     <li>
+       @<strong><%= tag.type %></strong>&nbsp;<%
+       attrs.forEach(function (key) {
+         var val = tag[key];
+         if(val) { 
+         %><span class="<%= key %>"><%= val %></span>&nbsp;<%
+         }         
+       }); %>
+     </li><%
+  });
+  %>
+  </ul>
+  <% if(comment.description && comment.description.full) {
+  %>
+<%= comment.description.full %>
+  <%
+  }
+
+  if(comment.code) {
+  %>
+  {% highlight js %}<%= comment.code %>{% endhighlight %}
+  <%
+  }
+  %>
+
+
+
