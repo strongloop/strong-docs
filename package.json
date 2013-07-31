@@ -13,8 +13,10 @@
     "express": "~3.3.1",
     "js-yaml": "~2.1.0",
     "sl-task-emitter": "0.0.3",
-    "dox": "~0.4.3",
-    "ejs": "~0.8.4"
+    "dox": "~0.4.4",
+    "ejs": "~0.8.4",
+    "strong-task-emitter": "0.0.4",
+    "markdown": "~0.5.0"
   },
   "devDependencies": {
     "mocha": "~1.9.0"
