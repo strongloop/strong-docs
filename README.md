@@ -7,11 +7,25 @@ Build single-page html documentation sites from markdown and JSDoc annotated Jav
 
 ## Site
 
-The purpose of strong-docs is to create a single page documentation site. This site is made of many nested [sections](#sections) parsed from your [documentation source files](#documentation-source-files).
+The purpose of strong-docs is to create a single page documentation site from a set of [documentation source files](#documentation-source-files). This site is made of many nested [sections](#sections) parsed from your [documentation source files](#documentation-source-files).
 
 ## Getting Started
 
-Create a set of markdown files in a directory. Each markdown file should follow the basic [strong docs markdown conventions](#markdown-conventions).
+Create a set of markdown files in a directory. Each markdown file should follow the basic [strong docs markdown conventions](#markdown-conventions). In order to parse a set of content, strong-docs requires a `docs.json` config file. Here is a simple example:
+
+docs.json
+
+    {
+      "content": [
+        "docs/overview.md",
+        "docs/guides.md",
+        "docs/api.md",
+        "lib/foo.js",
+        "lib/bar.js"
+      ]
+    }
+
+This config file should specify every [documentation source file](#documentation-source-file) (markdown or JavaScript).
 
 ## Sections
 
@@ -22,10 +36,6 @@ Since the output of strong-docs is a single html page, the input (markdown or Ja
 ### Section Depth
 
 As each file is parsed a specific depth is determined for organizing your single page doc site into logical sections. Each file is created as its own section by default ([this is configurable](#config)). 
-
-### Section Links
-
-The left hand navigation for the generated singe
 
 ## Documentation Source Files
 
@@ -83,8 +93,23 @@ Each annotation gets its own unique anchor. The title of the annotation is turne
 The following is a list of configuration properties for strong-docs. You may specify these values as a `config.json` file or as an `Object` using the `node.js` api.
 
  - **title** - the title of your documentation site
+ 
  - **version** - the version of the project you are documenting
- - **content** - default: './content' - Directory that contains all documentation content. You may also specify an array of files / directories. Eg. ['README.md', 'docs'].
+ 
+ - **content** - default: 'content' - specify your [documentation source files](#documentation-source-files)
+ 
+Examples:
+ 
+    [
+      "docs/overview.md",
+      "docs/guides.md",
+      "docs/api.md",
+      "lib/foo.js",
+      "lib/bar.js"
+    ]
+ 
+**Note:** The documentation will be rendered in the order it is listed in the content array.
+
  - **extensions** - default: ['.md', '.markdown', '.js']
  
 ## API
