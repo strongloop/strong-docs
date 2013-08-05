@@ -87,6 +87,7 @@ Each annotation gets its own unique anchor. The title of the annotation is turne
     header                 anchor
     # app.get(foo, bar)    #app.get
     # app.get()            #app.get-1
+    # Foo Bar              #foo-bar
 
 ## Config
 

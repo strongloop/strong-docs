@@ -1,6 +1,11 @@
 var path = require('path');
 var assert = require('assert');
-var SAMPLE = path.join('test', 'fixtures');
+var SAMPLE = [
+  'fixtures/a.md',
+  'fixtures/b/b.md',
+  'fixtures/b/b.js',
+  'fixtures/b/c/c.md'
+];
 var Docs = require('../');
 var util = require('../lib/util');
 
@@ -8,7 +13,8 @@ describe('Docs', function() {
 
   it('should load files from the given source', function(done) {
     Docs.parse({
-      content: [SAMPLE]
+      content: SAMPLE,
+      root: __dirname
     }, function (err, docs) {
       assert.equal(docs.content.length, 4);
       done();
@@ -17,7 +23,8 @@ describe('Docs', function() {
 
   it('should parse sections from each file', function(done) {
     Docs.parse({
-      content: [SAMPLE]
+      content: SAMPLE,
+      root: __dirname
     }, function (err, docs) {
       assert.equal(docs.sections.length, 8);
       done();
@@ -25,20 +32,12 @@ describe('Docs', function() {
   });
 
   it('should order the docs by given order', function(done) {
-    var order = [
-      path.join('b', 'c', 'c.md'),
-      'a.md',
-      path.join('b', 'b.md'),
-      path.join('b', 'b.js')
-    ];
-    
     Docs.parse({
-      content: [SAMPLE],
-      root: SAMPLE,
-      order: order
+      content: SAMPLE,
+      root: __dirname
     }, function (err, docs) {
       docs.content.forEach(function (d, i) {
-        assert.equal(path.basename(d.file), path.basename(order[i]));
+        assert.equal(path.basename(d.file), path.basename(SAMPLE[i]));
       })
       done();
     });
@@ -57,8 +56,8 @@ describe('Docs', function() {
     ];
     
     var expected = [
-      'Model.validatesNumericalityOf',
-      'Model.validatesNumericalityOf-1',
+      'model.validatesnumericalityof',
+      'model.validatesnumericalityof-1',
       'foo',
       'foo-1',
       'foo-2',
