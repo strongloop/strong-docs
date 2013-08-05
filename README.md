@@ -49,13 +49,13 @@ Strong-docs can parse markdown and [dox](https://github.com/visionmedia/dox) sty
 
 To create a section you only need to provide a markdown header eg. `#` or `###`. The following example creates several sections.
 
-  # My Section
+    # My Section
   
-  This is a paragraph.
+    This is a paragraph.
   
-  ## Sub Section
+    ## Sub Section
   
-  This is a paragraph within a sub section.
+    This is a paragraph within a sub section.
   
 The first section `# My Section` will have a depth of 1 and the second's depth will be 2. See (section depth)[#section-depth] for more info.
 
