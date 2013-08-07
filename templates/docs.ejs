@@ -1,0 +1,14 @@
+<% include header %>
+<div class="row">
+  <div class="span4">
+    <% include nav %>
+  </div>
+  <div class="span8">
+    <div id="content">
+      <% docs.content.forEach(function (doc) { %>
+        <%- doc.html %>
+      <% }) %>
+    </div>
+  </div>
+</div>
+<% include footer %>

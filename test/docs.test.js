@@ -70,6 +70,18 @@ describe('Docs', function() {
     });
   });
   
+  it('should be able to generate html', function(done) {
+    Docs.toHtml({
+      content: SAMPLE,
+      root: __dirname
+    }, function (err, html) {
+      assert(!err);
+      var doctype = '<!DOCTYPE html>';
+      assert.equal(html.substr(0, doctype.length), doctype);
+      done();
+    });
+  });
+  
   describe('util', function() {
     describe('.encodeAnchor(str)', function() {
       it('should create url safe anchor names', function () {
@@ -92,5 +104,5 @@ describe('Docs', function() {
         });
       });
     })
-  })
+  });
 });

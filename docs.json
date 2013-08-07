@@ -1,0 +1,10 @@
+{
+  "content": [
+    "README.md",
+    {"title": "Node.js API", "depth": 2},
+    {"title": "Class: Docs", "depth": 3},
+    "lib/docs.js",
+    {"title": "Class: Doc", "depth": 3},
+    "lib/doc.js"
+  ]
+}
