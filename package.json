@@ -18,7 +18,8 @@
     "strong-task-emitter": "0.0.4",
     "markdown": "~0.5.0",
     "highlight.js": "~7.3.0",
-    "marked": "~0.2.9"
+    "marked": "~0.2.9",
+    "glob": "3.2.6"
   },
   "devDependencies": {
     "mocha": "~1.9.0"

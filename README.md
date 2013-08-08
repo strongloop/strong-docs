@@ -213,7 +213,19 @@ Documentation will be rendered in the order it is listed in the content array. B
       "lib/foo.js",
       "lib/bar.js"
     ]
-    
+
+[Glob patterns](https://github.com/isaacs/node-glob) are supported for the items.
+
+    [
+        "docs/overview.md",
+        "docs/guides.md",
+        "docs/api.md",
+        {"title": "API", "depth": 2},
+        "lib/*.js"
+    ]
+
+**In the example above, the order of top-level items is still honored while files matching the wildcard are sorted.**
+
 ### Assets
 
 Bundle a set of files, such as images, with your documentation. This directory will be copied recursively into your doc site as `site/assets`. The name will not be preserved.
