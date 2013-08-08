@@ -3,7 +3,7 @@ var assert = require('assert');
 var SAMPLE = [
   'fixtures/a.md',
   'fixtures/b/b.md',
-  'fixtures/b/b.js',
+  'fixtures/b/*.js',
   'fixtures/b/c/c.md'
 ];
 var Docs = require('../');
@@ -27,18 +27,6 @@ describe('Docs', function() {
       root: __dirname
     }, function (err, docs) {
       assert.equal(docs.sections.length, 8);
-      done();
-    });
-  });
-
-  it('should order the docs by given order', function(done) {
-    Docs.parse({
-      content: SAMPLE,
-      root: __dirname
-    }, function (err, docs) {
-      docs.content.forEach(function (d, i) {
-        assert.equal(path.basename(d.file), path.basename(SAMPLE[i]));
-      })
       done();
     });
   });
