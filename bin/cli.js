@@ -33,13 +33,28 @@ try {
 }
 
 /*
+ * Assets
+ */
+
+var assets = config.assets 
+  ? path.join(path.dirname(configPath), config.assets)
+  : undefined;
+
+/*
  * Preview mode 
  */
 
 if(argv.preview || argv.p) {
   var app = express();
   app.use(express.static(path.join(__dirname, '..', 'public')));
+  if(assets) {
+    app.use('/assets', express.static(assets));
+  }
   app.get('/', function (req, res) {
+    // reload config
+    config = fs.readFileSync(configPath, 'utf8');
+    config = JSON.parse(config);
+    
     Docs.toHtml(config, function (err, html) {
       if(err) {
         next(err);
@@ -61,7 +76,14 @@ if(argv.preview || argv.p) {
  */
 
 if(outputPath) {
-  sh.cp('-r', assets, outputPath);
+  var publicAssets = path.join(__dirname, '..', 'public');
+  
+  sh.cp('-r', publicAssets, outputPath);
+  
+  if(assets) {
+    sh.cp('-r', assets, path.join(outputPath, 'assets'));
+  }
+  
   Docs.toHtml(config, function (err, html) {
     if(err) {
       console.error(err);
