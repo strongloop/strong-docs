@@ -10,12 +10,14 @@ var express = require('express');
 var configPath = argv.config || argv.c || 'docs.json';
 var config;
 var outputPath = argv.out || argv.o;
+var previewMode = argv.preview || argv.p;
+var showHelp = argv.help || argv.h || !(outputPath || previewMode);
 
 /*
  * Display help text 
  */
 
-if(argv.help || argv.h) {
+if(showHelp) {
   console.log(fs.readFileSync(path.join(__dirname, 'help.txt'), 'utf8'));
   process.exit();
 }
@@ -44,7 +46,7 @@ var assets = config.assets
  * Preview mode 
  */
 
-if(argv.preview || argv.p) {
+if(previewMode) {
   var app = express();
   app.use(express.static(path.join(__dirname, '..', 'public')));
   if(assets) {
