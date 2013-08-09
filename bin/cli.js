@@ -11,7 +11,10 @@ var configPath = argv.config || argv.c || 'docs.json';
 var config;
 var outputPath = argv.out || argv.o;
 var previewMode = argv.preview || argv.p;
-var showHelp = argv.help || argv.h || !(outputPath || previewMode);
+var showHelp = argv.help
+             || argv.h
+             || !(outputPath || previewMode)
+             || outputPath === true;
 
 /*
  * Display help text 
@@ -80,7 +83,7 @@ if(previewMode) {
 if(outputPath) {
   var publicAssets = path.join(__dirname, '..', 'public');
   
-  sh.cp('-r', publicAssets, outputPath);
+  sh.cp('-r', path.join(publicAssets, '*'), outputPath);
   
   if(assets) {
     sh.cp('-r', assets, path.join(outputPath, 'assets'));
