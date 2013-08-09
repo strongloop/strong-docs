@@ -86,7 +86,7 @@ if(outputPath) {
   sh.cp('-r', path.join(publicAssets, '*'), outputPath);
   
   if(assets) {
-    sh.cp('-r', assets, path.join(outputPath, 'assets'));
+    sh.cp('-r', path.join(assets, '*'), path.join(outputPath, 'assets'));
   }
   
   Docs.toHtml(config, function (err, html) {
