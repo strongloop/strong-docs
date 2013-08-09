@@ -149,7 +149,7 @@ Now any image can be referenced like this:
 
 #### Annotations
 
-Strong-docs will parse `.js` files for [JSDoc](http://usejsdoc.org/) annotations using the [dox]([JSDoc](http://usejsdoc.org/)) parser.
+Strong-docs will parse `.js` files for [JSDoc](http://usejsdoc.org/) annotations using the [dox](https://github.com/visionmedia/dox#dox) parser.
 
 Annotation may contain markdown. This markdown will be rendered as HTML but will not be parsed for [sections](#sections). Here is a basic example.
 
