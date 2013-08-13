@@ -177,6 +177,33 @@ exports.escape = function(html){
     
 See the [JSDoc](http://usejsdoc.org/) site for more examples.
 
+##### Ignoring Annotations
+
+To ignore an annotation change the comment block from `/**` to `/*!`.
+
+```js
+/*!
+ * My ignored annotation example...
+ *
+ * @myparam My value...
+ */
+
+// ...
+```
+
+You can also use the `@private` attribute to prevent your annotation from being rendered in your doc site. 
+
+```js
+/**
+ * My private annotation example...
+ *
+ * @myparam My value...
+ * @private
+ */
+
+// ...
+```
+
 #### Sections
 
 Sections are created for each [JSDoc](http://usejsdoc.org/) annotation. If you want to further organize your api docs you can inject sections using the "content" config setting. [Here is an example](#injecting-sections).
