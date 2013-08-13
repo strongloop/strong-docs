@@ -1,0 +1,31 @@
+<section class="code-doc <%= ann.isClass ? 'code-class' : '' %>">
+  <a name="<%= ann.anchor %>"></a>
+  <h<%= section.depth %> class="code-ref"><%= ann.header %></h<%= section.depth %>>
+  <% if(ann.classDesc) { %>
+    <h<%= section.depth + 1 %> class="code-class-desc"><%= ann.classDesc %></h<%= section.depth + 1 %>>
+  <% } %>
+    <% if(ann.moduleExample) { %>
+    <h<%= section.depth + 1 %> class="code-module-example"><%= ann.moduleExample %></h<%= section.depth + 1 %>>
+  <% } %>
+  <div class="code-desc">
+    <%- ann.html %>
+  </div>
+  <% if(Array.isArray(ann.args) && ann.args.length) { %>
+    <div class="code-arguments">
+      <strong class="code-arguments-hdr">Arguments</strong>
+      <% ann.args.forEach(function (arg) { %>
+        <div class="code-arg">
+          <div>
+            <strong class="code-arg-name"><%= arg.name %></strong>
+            <span class="code-arg-types">
+              <%= arg.types.join(' or ') %>
+            </span>
+          </div>
+          <div class="code-arg-desc">
+            <%= arg.description %>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</section>

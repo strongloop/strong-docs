@@ -19,7 +19,8 @@
     "markdown": "~0.5.0",
     "highlight.js": "~7.3.0",
     "marked": "~0.2.9",
-    "glob": "3.2.6"
+    "glob": "3.2.6",
+    "underscore.string": "~2.3.3"
   },
   "devDependencies": {
     "mocha": "~1.9.0"
