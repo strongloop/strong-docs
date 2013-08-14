@@ -70,6 +70,17 @@ describe('Docs', function() {
     });
   });
   
+  it('should error when a file does not exist', function (done) {
+    Docs.parse({
+      content: ['does-not-exist'],
+      root: __dirname
+    }, function (err, docs) {
+      assert(err);
+      assert.equal(err.message, 'no matching files were found');
+      done();
+    });
+  });
+  
   describe('util', function() {
     describe('.encodeAnchor(str)', function() {
       it('should create url safe anchor names', function () {
