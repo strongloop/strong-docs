@@ -26,3 +26,15 @@ a[name] {
 .nav .depth-6 > a { padding: 0 50px; }
 .nav .depth-7 > a { padding: 0 60px; }
 
+/* Annotations */
+.code-arguments-hdr {
+  text-transform: capitalize;
+  font-size: 120%;
+  text-decoration: underline;
+  margin-top: 20px;
+  display: block;
+}
+.code-arg {
+  margin-top: 10px;
+  margin-left: 20px;
+}
