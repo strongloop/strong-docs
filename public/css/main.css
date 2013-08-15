@@ -6,7 +6,11 @@ body {
 /* Since we generate (both via Marked and JSDoc) empty anchors as jump link
 targets, we can target them here to offset said jump links. */
 a[name] {
-  display: block; position: relative; top: -70px; visibility: hidden;
+  display: block;
+  position: relative;
+  top: -70px;
+  visibility: hidden;
+  margin-top: 30px;
 }
 
 .affix > .nav {
@@ -30,4 +34,17 @@ a[name] {
 .nav .depth-5 > a { padding: 0 40px; }
 .nav .depth-6 > a { padding: 0 50px; }
 .nav .depth-7 > a { padding: 0 60px; }
+
+/* Annotations */
+.code-arguments-hdr {
+  text-transform: capitalize;
+  font-size: 120%;
+  text-decoration: underline;
+  margin-top: 20px;
+  display: block;
+}
+.code-arg {
+  margin-top: 10px;
+  margin-left: 20px;
+}
 
