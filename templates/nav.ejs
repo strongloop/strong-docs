@@ -1,9 +1,7 @@
-<div class="affix">
-  <ul class="nav list-unstyled">
-    <% docs.sections.forEach(function(section) { %>
-      <li class="depth-<%= section.depth %>">
-        <a href="#<%= section.anchor %>"><%= section.title %></a>
-      </li>
-    <% }) %>
-  </ul>
-</div>
+<ul class="nav list-unstyled">
+  <% docs.sections.forEach(function(section) { %>
+    <li class="depth-<%= section.depth %>">
+      <a href="#<%= section.anchor %>"><%= section.title %></a>
+    </li>
+  <% }) %>
+</ul>

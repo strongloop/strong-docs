@@ -1,8 +1,3 @@
-body {
-  padding-top: 60px;
-  padding-bottom: 40px;
-}
-
 /* Since we generate (both via Marked and JSDoc) empty anchors as jump link
 targets, we can target them here to offset said jump links. */
 a[name] {
@@ -13,11 +8,11 @@ a[name] {
   margin-top: 30px;
 }
 
-.affix > .nav {
-  position: fixed;
-  padding-bottom: 180px;
-  height: 100%;
-  overflow: auto;
+.column {
+  position: absolute;
+  top: 52px;
+  bottom: 0;
+  overflow-y: auto;
 }
 
 .depth-1 a {font-size: 170%; font-weight: bold;}
