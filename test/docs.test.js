@@ -81,6 +81,18 @@ describe('Docs', function() {
     });
   });
   
+  describe('@options', function () {
+    it('should define a param of type object with properties following', function (done) {
+      Docs.parse({
+        content: ['fixtures/complex-attrs.js'],
+        root: __dirname
+      }, function (err, docs) {
+        done();
+      });
+    });
+  })
+  
+  
   describe('util', function() {
     describe('.encodeAnchor(str)', function() {
       it('should create url safe anchor names', function () {
