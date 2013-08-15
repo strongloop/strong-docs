@@ -33,8 +33,8 @@ try {
   configPath = path.join(process.cwd(), configPath);
   config = require(configPath);
 } catch(e) {
-  console.error('Could not load config at: "%s"', configPath);
-  process.exit();
+  console.error('Could not load config: %s', e.message);
+  process.exit(1);
 }
 
 /*
