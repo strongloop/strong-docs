@@ -1,38 +1,7 @@
-<div id="nav">
-  <ul id="inner-nav" class="unstyled">
-    <% docs.sections.forEach(function(section) { %>
-      <li class="depth-<%= section.depth %>">
-        <a href="#<%= section.anchor %>"><%= section.title %></a>
-      </li>
-    <% }) %>
-  </ul>
-</div>
-
-<style>
-  #nav {
-    display: block;
-    width: 300px;
-    position: fixed;
-    overflow: auto;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: #fff;
-  }
-  
-  #inner-nav {padding: 20px;}
-  
-  .depth-1 a {font-size: 170%; font-weight: bold;}
-  .depth-2 a {font-size: 140%; font-weight: bold;}
-  .depth-3 a {font-size: 120%;}
-  .depth-4 a {font-size: 100%;}
-  .depth-5 a {font-size: 90%;}
-  .depth-6 a {font-size: 80%;}
-  
-  .depth-2 {margin-top: 40px;}
-  .depth-3 {margin-top: 10px;}
-  .depth-4 {margin-left: 10px;}
-  .depth-5 {margin-left: 20px;}
-  .depth-6 {margin-left: 30px;}
-  .depth-7 {margin-left: 40px;}
-</style>
+<ul class="nav list-unstyled">
+  <% docs.sections.forEach(function(section) { %>
+    <li class="depth-<%= section.depth %>">
+      <a href="#<%= section.anchor %>"><%= section.title %></a>
+    </li>
+  <% }) %>
+</ul>
