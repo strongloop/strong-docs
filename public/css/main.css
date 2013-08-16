@@ -1,22 +1,28 @@
+/* Since we generate (both via Marked and JSDoc) empty anchors as jump link
+targets, we can target them here to offset said jump links. */
+a[name] {
+  display: block; position: relative; top: -70px; visibility: hidden;
+}
 
+.column {
+  position: absolute;
+  top: 52px;
+  bottom: 0;
+  overflow-y: auto;
+}
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
+.depth-1 a {font-size: 170%; font-weight: bold;}
+.depth-2 a {font-size: 140%; font-weight: bold;}
+.depth-3 a {font-size: 120%;}
+.depth-4 a {font-size: 100%;}
+.depth-5 a {font-size: 90%;}
+.depth-6 a {font-size: 80%;}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.nav .depth-1 > a { padding: 10px 15px; }
+.nav .depth-2 > a { padding: 10px 15px; }
+.nav .depth-3 > a { padding: 5px 20px; }
+.nav .depth-4 > a { padding: 0 30px; }
+.nav .depth-5 > a { padding: 0 40px; }
+.nav .depth-6 > a { padding: 0 50px; }
+.nav .depth-7 > a { padding: 0 60px; }
 
