@@ -13,19 +13,53 @@
   <% if(Array.isArray(ann.args) && ann.args.length) { %>
     <div class="code-arguments">
       <strong class="code-arguments-hdr">Arguments</strong>
-      <% ann.args.forEach(function (arg) { %>
-        <div class="code-arg">
-          <div>
-            <strong class="code-arg-name"><%= arg.name %></strong>
-            <span class="code-arg-types">
-              <%= arg.types.join(' or ') %>
-            </span>
-          </div>
-          <div class="code-arg-desc">
-            <%= arg.description %>
-          </div>
-        </div>
-      <% }) %>
+      <%
+      ann.args.forEach(function (arg) {
+        renderArg(arg);
+      })
+      %>
     </div>
+    <%
+
+      ann.args.forEach(function (arg) {
+        if(arg.type === 'options' && arg.properties.length) {
+          %>
+          <strong class="code-arguments-hdr"><%= arg.name || 'Options' %></strong>
+          <div class="code-arg-options">
+          <%
+          arg.properties.forEach(renderArg);
+          %>
+          </div>
+          <%
+        } else if(arg.type === 'callback' && arg.args.length) {
+          %>
+          <strong class="code-arguments-hdr"><%= arg.name || 'Callback' %></strong>
+          <div class="code-callback-args">
+          <%
+          arg.args.forEach(renderArg);
+          %>
+          </div>
+          <%
+        }
+      })
+
+    %>
+
   <% } %>
+
+
 </section>
+
+<% function renderArg(arg) { %>
+  <div class="code-arg">
+    <div>
+      <code class="code-arg-name"><%= arg.name %></code>
+      <span class="code-arg-types">
+        <%= arg.types.join(' or ') %>
+      </span>
+    </div>
+    <div class="code-arg-desc">
+      <%= arg.description || '' %>
+    </div>
+  </div>
+<% } %>
