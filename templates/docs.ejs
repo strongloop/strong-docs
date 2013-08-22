@@ -1,13 +1,13 @@
 <% include header %>
 <div class="row">
-  <div class="col-lg-4 column">
+  <div class="col-lg-3 column">
     <% include nav %>
   </div>
-  <div class="col-lg-8 col-lg-offset-4 column">
-    <div id="content">
-      <% docs.content.forEach(function (doc) { %>
-        <%- doc.html %>
-      <% }) %>
+  <div class="col-lg-9 col-lg-offset-3 column">
+    <div class="readability">
+    <% docs.content.forEach(function (doc) { %>
+      <%- doc.html %>
+    <% }) %>
     </div>
   </div>
 </div>
