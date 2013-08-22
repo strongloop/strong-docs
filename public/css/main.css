@@ -5,14 +5,26 @@ a[name] {
 }
 
 .column {
-  position: absolute;
-  top: 52px;
-  bottom: 0;
-  overflow-y: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.depth-1 a {font-size: 170%; font-weight: bold;}
-.depth-2 a {font-size: 140%; font-weight: bold;}
+.readability {
+  padding-left: 40px;
+  max-width: 700px;
+}
+
+@media (min-width: 992px) {
+  .column {
+    position: absolute;
+    top: 52px;
+    bottom: 0;
+    overflow-y: auto;
+  }
+}
+
+.depth-1 a {font-size: 170%;}
+.depth-2 a {font-size: 140%;}
 .depth-3 a {font-size: 120%;}
 .depth-4 a {font-size: 100%;}
 .depth-5 a {font-size: 90%;}
@@ -25,4 +37,3 @@ a[name] {
 .nav .depth-5 > a { padding: 0 40px; }
 .nav .depth-6 > a { padding: 0 50px; }
 .nav .depth-7 > a { padding: 0 60px; }
-
