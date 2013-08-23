@@ -7,7 +7,6 @@ var SAMPLE = [
   'fixtures/b/c/c.md'
 ];
 var Docs = require('../');
-var util = require('../lib/util');
 
 describe('Docs', function() {
 
@@ -91,29 +90,4 @@ describe('Docs', function() {
       });
     });
   })
-  
-  
-  describe('util', function() {
-    describe('.encodeAnchor(str)', function() {
-      it('should create url safe anchor names', function () {
-        var samples = [
-          'Model.validatesNumericalityOf(property, options)',
-          'Foo BAR bat BAZ',
-          'foo bar',
-          'foo-BAR'
-        ];
-    
-        var expected = [
-          'Model.validatesNumericalityOf',
-          'Foo-BAR-bat-BAZ',
-          'foo-bar',
-          'foo-BAR'
-        ];
-    
-        samples.forEach(function (input, i) {
-          assert.equal(util.encodeAnchor(input), expected[i]);
-        });
-      });
-    })
-  });
 });
