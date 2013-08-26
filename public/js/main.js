@@ -6,4 +6,14 @@ $(document).ready(function () {
     $i.next().attr('id', $i.attr('name'));
     $i.detach();
   });
+
+
+  $('.scroll-spy-target').on('activate.bs.scrollspy', function (event) {
+    var $this = $(this);
+    var $target = $(event.target);
+
+    $this.scrollTo($target, 0, {
+      offset: -($this.innerHeight() / 2)
+    });
+  });
 });
