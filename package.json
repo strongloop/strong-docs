@@ -1,7 +1,7 @@
 {
   "name": "strong-docs",
   "description": "Sleek, intuitive, and powerful documentation site generator",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/strongloop/strong-docs.git"
@@ -30,5 +30,6 @@
   },
   "bin": {
     "sdocs": "./bin/cli.js"
-  }
+  },
+  "license": "MIT"
 }
