@@ -70,9 +70,13 @@ if(previewMode) {
   });
   
   app.listen(port, function () {
-    console.log('Preview your docs @ http://localhost:' + port);
-    console.log();
-    console.log('Refresh your browser to rebuild.');
+    if (process.stdout.isTTY) {
+      console.log('Preview your docs @ http://localhost:' + port);
+      console.log();
+      console.log('Refresh your browser to rebuild.');
+    } else {
+      console.log('http://localhost:' + port);
+    }
   });
 }
 
