@@ -11,6 +11,8 @@ var configPath = argv.config || argv.c || 'docs.json';
 var config;
 var outputPath = argv.out || argv.o;
 var previewMode = argv.preview || argv.p;
+var packagePath = argv.package || 'package.json';
+var package;
 var showHelp = argv.help
              || argv.h
              || !(outputPath || previewMode)
@@ -37,6 +39,18 @@ try {
   process.exit(1);
 }
 
+/**
+ * Package metadata
+ */
+
+try {
+  packagePath = path.join(process.cwd(), packagePath);
+  config.package = package = require(packagePath);
+} catch(e) {
+  console.error('Could not load package data: %s', e.message);
+  process.exit(1);
+}
+
 /*
  * Assets
  */
@@ -59,7 +73,8 @@ if(previewMode) {
     // reload config
     config = fs.readFileSync(configPath, 'utf8');
     config = JSON.parse(config);
-    
+    config.package = package;
+
     Docs.toHtml(config, function (err, html) {
       if(err) {
         next(err);
