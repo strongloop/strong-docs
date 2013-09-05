@@ -67,3 +67,8 @@ a[name] {
 }
 .code-arg-types:before { content: "{"; }
 .code-arg-types:after { content: "}"; }
+
+.intentionally-left-blank {
+  display: block;
+  height: 100%;
+}
