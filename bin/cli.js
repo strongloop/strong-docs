@@ -55,9 +55,27 @@ try {
  * Assets
  */
 
-var assets = config.assets 
-  ? path.join(path.dirname(configPath), config.assets)
-  : undefined;
+var assets = getAssetData();
+
+function getAssetData() {
+  var assets = config.assets;
+
+  if (!assets) {
+    return null;
+  }
+
+  if (typeof assets === 'string') {
+    assets = {
+      '/assets': assets
+    };
+  }
+
+  Object.keys(assets).forEach(function (key) {
+    assets[key] = path.join(path.dirname(configPath), assets[key]);
+  });
+
+  return assets;
+}
 
 /*
  * Preview mode 
@@ -67,7 +85,9 @@ if(previewMode) {
   var app = express();
   app.use(express.static(path.join(__dirname, '..', 'public')));
   if(assets) {
-    app.use('/assets', express.static(assets));
+    Object.keys(assets).forEach(function (key) {
+      app.use(key, express.static(assets[key]));
+    });
   }
   app.get('/', function (req, res) {
     // reload config
@@ -105,7 +125,10 @@ if(outputPath) {
   sh.cp('-r', path.join(publicAssets, '*'), outputPath);
   
   if(assets) {
-    sh.cp('-r', path.join(assets, '*'), path.join(outputPath, 'assets'));
+    Object.keys(assets).forEach(function (key) {
+      sh.mkdir('-p', path.join(outputPath, key));
+      sh.cp('-r', path.join(assets[key], '*'), path.join(outputPath, key));
+    });
   }
   
   Docs.toHtml(config, function (err, html) {
