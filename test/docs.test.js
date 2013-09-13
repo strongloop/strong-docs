@@ -43,8 +43,8 @@ describe('Docs', function() {
     ];
     
     var expected = [
-      'model.validatesnumericalityof',
-      'model.validatesnumericalityof-1',
+      'modelvalidatesnumericalityofproperty-options',
+      'modelvalidatesnumericalityofproperty-options-1',
       'foo',
       'foo-1',
       'foo-2',
