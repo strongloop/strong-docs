@@ -59,14 +59,14 @@ a[name] {
   margin-top: 10px;
   margin-left: 20px;
 }
-.code-arg div {
-  display: inline;
-}
 .code-arg-types {
   font-weight: bold;
 }
 .code-arg-types:before { content: "{"; }
 .code-arg-types:after { content: "}"; }
+.code-arg-desc {
+  margin-top: 10px;
+}
 
 .intentionally-left-blank {
   display: block;

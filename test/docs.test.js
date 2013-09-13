@@ -89,5 +89,23 @@ describe('Docs', function() {
         done();
       });
     });
-  })
+  });
+
+  describe('complex headers', function () {
+    it('should not include markdown', function (done) {
+      Docs.parse({
+        content: ['fixtures/complex-headers.md'],
+        root: __dirname
+      }, function (err, docs) {
+        var sections = docs.content[0].sections;
+        assert.equal(sections[0].title, 'complex-headers');
+        assert.equal(sections[1].title, 'link');
+        assert.equal(sections[2].title, 'bold header');
+        assert.equal(sections[3].title, 'code.header');
+        assert.equal(sections[4].title, 'slc create');
+        assert.equal(sections[5].title, 'workspace');
+        done();
+      });
+    });
+  });
 });
