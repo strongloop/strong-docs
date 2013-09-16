@@ -32,8 +32,19 @@ if(showHelp) {
  */
 
 try {
-  configPath = path.join(process.cwd(), configPath);
-  config = require(configPath);
+  if(fs.existsSync(configPath)) {
+    configPath = path.join(process.cwd(), configPath);
+    config = require(configPath);
+  } else {
+    if(configPath === 'docs.json') {
+      // Default to *.md
+      console.log('WARNING: ' + configPath + ' doesn\'t exist');
+      config = {content: [ "*.md" ]};
+    } else {
+      console.error(configPath + ' doesn\'t exist');
+      process.exit(1);
+    }
+  }
 } catch(e) {
   console.error('Could not load config: %s', e.message);
   process.exit(1);
@@ -44,8 +55,19 @@ try {
  */
 
 try {
-  packagePath = path.join(process.cwd(), packagePath);
-  config.package = package = require(packagePath);
+  if(fs.existsSync(packagePath)) {
+    packagePath = path.join(process.cwd(), packagePath);
+    config.package = package = require(packagePath);
+  } else {
+    if(packagePath === 'package.json') {
+      // Ignore it
+      console.log('WARNING: ' + packagePath + ' doesn\'t exist');
+      config.package = package = {};
+    } else {
+      console.error(packagePath + ' doesn\'t exist');
+      process.exit(1);
+    }
+  }
 } catch(e) {
   console.error('Could not load package data: %s', e.message);
   process.exit(1);
@@ -91,9 +113,11 @@ if(previewMode) {
   }
   app.get('/', function (req, res) {
     // reload config
-    config = fs.readFileSync(configPath, 'utf8');
-    config = JSON.parse(config);
-    config.package = package;
+    if(fs.existsSync(configPath)) {
+      config = fs.readFileSync(configPath, 'utf8');
+      config = JSON.parse(config);
+      config.package = package;
+    }
 
     Docs.toHtml(config, function (err, html) {
       if(err) {
