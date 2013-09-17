@@ -7,6 +7,7 @@ var path = require('path');
 var fs = require('fs');
 var port = argv.port || process.env.PORT || 3000;
 var express = require('express');
+var configPaths = {};
 var configPath = argv.config || argv.c || 'docs.json';
 var config;
 var outputPath = argv.out || argv.o;
@@ -31,33 +32,19 @@ if(showHelp) {
  * Config 
  */
 
-try {
-  configPath = path.join(process.cwd(), configPath);
-  config = require(configPath);
-} catch(e) {
-  console.error('Could not load config: %s', e.message);
-  process.exit(1);
-}
+configPaths.configPath = path.join(process.cwd(), configPath);
 
 /**
  * Package metadata
  */
 
-try {
-  packagePath = path.join(process.cwd(), packagePath);
-  config.package = package = require(packagePath);
-} catch(e) {
-  console.error('Could not load package data: %s', e.message);
-  process.exit(1);
-}
+configPaths.packagePath = path.join(process.cwd(), packagePath);
 
 /*
  * Assets
  */
 
-var assets = getAssetData();
-
-function getAssetData() {
+function getAssetData(config) {
   var assets = config.assets;
 
   if (!assets) {
@@ -83,26 +70,35 @@ function getAssetData() {
 
 if(previewMode) {
   var app = express();
-  app.use(express.static(path.join(__dirname, '..', 'public')));
-  if(assets) {
-    Object.keys(assets).forEach(function (key) {
-      app.use(key, express.static(assets[key]));
-    });
-  }
-  app.get('/', function (req, res) {
-    // reload config
-    config = fs.readFileSync(configPath, 'utf8');
-    config = JSON.parse(config);
-    config.package = package;
 
-    Docs.toHtml(config, function (err, html) {
-      if(err) {
-        next(err);
-      } else {
-        res.send(html);
+  // build the preview app on every request
+  app.use(function(req, res, next) {
+    var sapp = express();
+
+    Docs.readConfig(configPaths, function(err, config) {
+      var assets = getAssetData(config);
+
+      if(assets) {
+        Object.keys(assets).forEach(function (key) {
+          sapp.use(key, express.static(assets[key]));
+        });
       }
+
+      sapp.get('/', function (req, res) {
+        Docs.toHtml(config, function (err, html) {
+          if(err) {
+            next(err);
+          } else {
+            res.send(html);
+          }
+        });
+      });
+
+      sapp.handle(req, res, next);
     });
   });
+
+  app.use(express.static(path.join(__dirname, '..', 'public')));
   
   app.listen(port, function () {
     if (process.stdout.isTTY) {
@@ -124,19 +120,23 @@ if(outputPath) {
   
   sh.cp('-r', path.join(publicAssets, '*'), outputPath);
   
-  if(assets) {
-    Object.keys(assets).forEach(function (key) {
-      sh.mkdir('-p', path.join(outputPath, key));
-      sh.cp('-r', path.join(assets[key], '*'), path.join(outputPath, key));
-    });
-  }
-  
-  Docs.toHtml(config, function (err, html) {
-    if(err) {
-      console.error(err);
-      process.exit();
-    } else {
-      html.to(path.join(outputPath, 'index.html'));
+  Docs.readConfig(configPaths, function(err, config) {
+    var assets = getAssetData(config);
+
+    if(assets) {
+      Object.keys(assets).forEach(function (key) {
+        sh.mkdir('-p', path.join(outputPath, key));
+        sh.cp('-r', path.join(assets[key], '*'), path.join(outputPath, key));
+      });
     }
+
+    Docs.toHtml(config, function (err, html) {
+      if(err) {
+        console.error(err);
+        process.exit();
+      } else {
+        html.to(path.join(outputPath, 'index.html'));
+      }
+    });
   });
 }

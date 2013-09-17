@@ -80,6 +80,24 @@ describe('Docs', function() {
     });
   });
   
+  describe('.readConfig(options, fn)', function(){
+    it('should read a config file', function(done) {
+      Docs.readConfig({
+        configPath: 'docs.json',
+        packagePath: 'package.json'
+      }, function (err, config) {
+        if(err) {
+          done(err);
+        } else {
+          assert.equal(config.assets, 'assets');
+          assert.equal(config.content[0], 'README.md');
+          assert.equal(config.package.name, 'strong-docs');
+          done();          
+        }
+      });
+    });
+  });
+  
   describe('@options', function () {
     it('should define a param of type object with properties following', function (done) {
       Docs.parse({
