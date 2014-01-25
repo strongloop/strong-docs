@@ -11,8 +11,8 @@
     <%- ann.html %>
   </div>
   <% if(Array.isArray(ann.args) && ann.args.length) { %>
+  <div class="code-arguments-hdr">Arguments</div>
     <table class="code-arguments" border="1">
-      <caption class="code-arguments-hdr">Arguments</caption>
       <tr><th>Name</th><th>Type</th><th>Description</th>     
       <%
       ann.args.forEach(function (arg) {
@@ -25,8 +25,8 @@
       ann.args.forEach(function (arg) {
         if(arg.type === 'options' && arg.properties.length) {
           %>
+          <div class="code-arguments-hdr"><%= arg.name || 'Options' %></div>
           <table class="code-arg-options" border="1">
-          <caption class="code-arguments-hdr"><%= arg.name || 'Options' %></caption>
           <tr><th>Name</th><th>Type</th><th>Description</th>
           <%
           arg.properties.forEach(renderArg);
@@ -35,8 +35,8 @@
           <%
         } else if(arg.type === 'callback' && arg.args.length) {
           %>
+          <div class="code-arguments-hdr"><%= arg.name || 'Callback' %></div>           
           <table class="code-callback-args" border="1">
-          <caption class="code-arguments-hdr"><%= arg.name || 'Callback' %></caption>
           <tr><th>Name</th><th>Type</th><th>Description</th>
           <%
           arg.args.forEach(renderArg);
