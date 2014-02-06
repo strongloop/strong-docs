@@ -29,6 +29,15 @@ describe('Docs', function() {
       done();
     });
   });
+
+  it('ignores error for config with section placeholders only', function(done) {
+    Docs.parse({
+      content: [ { title: 'a-title' }]
+    }, function(err) {
+      assert(err, 'Docs.parse failed with an error');
+      done();
+    });
+  });
   
   it('should have unique anchors', function () {
     var docs = new Docs();
