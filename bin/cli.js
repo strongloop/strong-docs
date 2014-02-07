@@ -76,6 +76,7 @@ if(previewMode) {
     var sapp = express();
 
     Docs.readConfig(configPaths, function(err, config) {
+      if (err) return next(err);
       var assets = getAssetData(config);
 
       if(assets) {

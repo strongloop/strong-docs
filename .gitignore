@@ -9,3 +9,4 @@
 *.swo
 node_modules/
 _site
+test/fixtures/generated.md

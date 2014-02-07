@@ -1,3 +1,4 @@
+var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
 var SAMPLE = [
@@ -26,6 +27,37 @@ describe('Docs', function() {
       root: __dirname
     }, function (err, docs) {
       assert.equal(docs.sections.length, 8);
+      done();
+    });
+  });
+
+  it('ignores error for config with section placeholders only', function(done) {
+    Docs.parse({
+      content: [ { title: 'a-title' }]
+    }, function(err) {
+      assert(err, 'Docs.parse failed with an error');
+      done();
+    });
+  });
+
+  it('should call "init" script', function(done) {
+    try {
+      fs.unlinkSync(path.resolve(__dirname, 'fixtures/generated.md'));
+    } catch (e) {
+      if (e.code != 'ENOENT') return done(err);
+    }
+
+    function generate() {
+      require('fs').writeFileSync('fixtures/generated.md', '# Generated\n\n');
+    }
+
+    Docs.parse({
+      root: __dirname,
+      init: 'node -e "(' + generate.toString() + ')()"',
+      content: [ 'fixtures/generated.md' ]
+    }, function(err, docs) {
+      if (err) return done(err);
+      assert.equal(docs.sections.length, 1);
       done();
     });
   });
