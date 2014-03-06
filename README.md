@@ -261,3 +261,74 @@ Link to these files from your docs like this:
 
     ![Alt text](assets/img.jpg)
     [My File](assets/pkg.zip)
+    
+## JSDoc Annotations
+
+### Supported annnotations
+
+* author
+* callback
+* class
+* classdesc
+* constant
+* constructor
+* deprecated
+* desc
+* end
+* file
+* header
+* ignore
+* instance
+* memberof
+* method
+* module
+* name
+* overview
+* options
+* param
+* private
+* property
+* public
+* returns
+* static
+* summary
+
+###Not supported
+
+* abstract
+* access
+* alias
+* augments
+* borrows
+* constructs
+* copyright
+* default
+* enum
+* event
+* example
+* exports
+* external
+* fires
+* global
+* inner
+* kind
+* lends
+* license
+* link
+* member
+* mixes
+* mixin
+* namespace
+* protected
+* readonly
+* requires
+* see
+* since
+* this
+* throws
+* todo
+* tutorial
+* type
+* typedef
+* variation
+* version
