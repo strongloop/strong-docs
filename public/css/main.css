@@ -53,8 +53,20 @@ a[name] {
   text-transform: capitalize;
   font-size: 120%;
   margin-top: 20px;
+  margin-bottom: 10px;
   display: block;
 }
+
+code {
+  font-family: 'Courier New','Andale Mono',monospace !important;
+  font-weight: bold;
+  background: none;
+}
+
+.code-ref {
+  margin-left: -20px;
+}
+
 .code-arg {
   margin-top: 10px;
   margin-left: 20px;
@@ -62,8 +74,6 @@ a[name] {
 .code-arg-types {
   font-weight: bold;
 }
-.code-arg-types:before { content: "{"; }
-.code-arg-types:after { content: "}"; }
 .code-arg-desc {
   margin-top: 10px;
 }
@@ -71,4 +81,60 @@ a[name] {
 .intentionally-left-blank {
   display: block;
   height: 100%;
+}
+
+.params {
+  width: 100%;
+  border: solid 1px #ccc;
+}
+.params td, .params th {
+  padding: 5px;
+  vertical-align: middle;
+  border: solid 1px #ccc;
+}
+
+.params .hdr-name {
+  width: 20%;
+}
+.params .hdr-type {
+  width: 20%;
+}
+.params .hdr-desc {
+  width: 60%;
+}
+
+.params th {
+  background: #e8e8e8;
+}
+
+.params p {
+  margin: 0;
+}
+
+.params ul {
+  margin: 0;
+}
+
+.params ul + * {
+  margin-top: 10px;
+}
+
+.params pre {
+  margin: 0;
+}
+
+.params pre + * {
+  margin-top: 10px;
+}
+
+.params p + * {
+  margin-top: 10px;
+}
+
+section + section {
+  margin-top: 24px;
+}
+
+section {
+  margin-left: 30px;
 }

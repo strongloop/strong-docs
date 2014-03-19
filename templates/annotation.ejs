@@ -12,8 +12,12 @@
   </div>
   <% if(Array.isArray(ann.args) && ann.args.length) { %>
     <div class="code-arguments-hdr">Arguments</div>
-    <table class="code-arguments" border="1">
-      <tr><th>Name</th><th>Type</th><th>Description</th>     
+    <table class="params code-arguments">
+      <tr>
+        <th class="hdr-name">Name</th>
+        <th class="hdr-type">Type</th>
+        <th class="hdr-desc">Description</th>
+      </tr>
       <%
       ann.args.forEach(function (arg) {
         renderArg(arg);
@@ -26,8 +30,12 @@
         if(arg.type === 'options' && arg.properties.length) {
           %>
           <div class="code-arguments-hdr"><%= arg.name || 'Options' %></div>
-          <table class="code-arg-options" border="1">
-          <tr><th>Name</th><th>Type</th><th>Description</th>
+          <table class="params code-arg-options">
+            <tr>
+              <th class="hdr-name">Name</th>
+              <th class="hdr-type">Type</th>
+              <th class="hdr-desc">Description</th>
+            </tr>
           <%
           arg.properties.forEach(renderArg);
           %>
@@ -36,8 +44,12 @@
         } else if(arg.type === 'callback' && arg.args.length) {
           %>
           <div class="code-arguments-hdr"><%= arg.name || 'Callback' %></div>           
-          <table class="code-callback-args" border="1">
-          <tr><th>Name</th><th>Type</th><th>Description</th>
+          <table class="params code-callback-args">
+          <tr>
+            <th class="hdr-name">Name</th>
+            <th class="hdr-type">Type</th>
+            <th class="hdr-desc">Description</th>
+          </tr>
           <%
           arg.args.forEach(renderArg);
           %>
@@ -54,14 +66,23 @@
     <div class="code-arguments-hdr">Returns</div>
     <strong><%= ann.attrs.returns %></strong>
   <% } %>
+  
+  <% if(ann.attrs.example) {%> 
+    <div class="code-arguments-hdr">Example</div>
+    <div class="example">
+      <%- md(ann.attrs.example) %>
+    </div>
+  <% } %>
 </section>
+
 
 <% function renderArg(arg) { %>
   <tr class="code-arg">
-    <td>
-      <code class="code-arg-name"><%= arg.name %></code></td>
+      <td>
+        <strong class="code-arg-name"><%= arg.name %></strong>
+      </td>
       <td class="code-arg-types">
-        <%= arg.types.join(' or ') %>
+        <code><%= arg.types.join(' or ') %></code>
       </td>
     <td class="code-arg-desc">
       <%- arg.description || '' %>
