@@ -64,7 +64,14 @@
 
   <% if(ann.attrs.returns) { %>
     <div class="code-arguments-hdr">Returns</div>
-    <strong><%= ann.attrs.returns %></strong>
+    <table class="params code-callback-args">
+      <tr>
+        <th class="hdr-name">Name</th>
+        <th class="hdr-type">Type</th>
+        <th class="hdr-desc">Description</th>
+      </tr>
+      <% renderArg(ann.attrs.returns) %>
+    </table>
   <% } %>
   
   <% if(ann.attrs.example) {%> 
