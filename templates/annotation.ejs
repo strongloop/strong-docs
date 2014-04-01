@@ -89,7 +89,11 @@
         <strong class="code-arg-name"><%= arg.name %></strong>
       </td>
       <td class="code-arg-types">
-        <code><%= arg.types.join(' or ') %></code>
+        <% if(arg.types) { %>
+          <code><%= arg.types.join(' or ') %></code>
+        <% } else if(arg.type) { %>
+          <code><%= arg.type %></code>
+        <% } %>
       </td>
     <td class="code-arg-desc">
       <%- arg.description || '' %>
