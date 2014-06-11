@@ -57,10 +57,43 @@
           <%
         }
       })
-
     %>
 
   <% } %>
+  
+    <% if(Array.isArray(ann.properties) && ann.properties.length) { %>
+    <div class="code-arguments-hdr">Class Properties</div>
+    <table class="params code-arguments">
+      <tr>
+        <th class="hdr-name">Name</th>
+        <th class="hdr-type">Type</th>
+        <th class="hdr-desc">Description</th>
+      </tr>
+      <%
+      ann.properties.forEach(function (arg) {
+        renderArg(arg);
+      })
+      %>
+    </table>
+    <%
+      ann.properties.forEach(function (arg) {
+        if(arg.type === 'options' && arg.properties.length) {
+          %>
+          <div class="code-arguments-hdr"><%= arg.name || 'Options' %></div>
+          <table class="params code-arg-options">
+            <tr>
+              <th class="hdr-name">Name</th>
+              <th class="hdr-type">Type</th>
+              <th class="hdr-desc">Description</th>
+            </tr>
+          <%
+          arg.properties.forEach(renderArg);
+          %>
+          </table>
+          <% } 
+      })
+ }
+ %> 
 
   <% if(ann.attrs.returns) { %>
     <div class="code-arguments-hdr">Returns</div>
