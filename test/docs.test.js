@@ -67,8 +67,8 @@ describe('Docs', function() {
   it('should have unique anchors', function () {
     var docs = new Docs();
     var samples = [
-      'Model.validatesNumericalityOf(property, options)',
-      'Model.validatesNumericalityOf(property, options)',
+      'Model.validatesNumericalityOf',
+      'Model.validatesNumericalityOf',
       'foo',
       'foo',
       'foo',
@@ -77,8 +77,8 @@ describe('Docs', function() {
     ];
     
     var expected = [
-      'modelvalidatesnumericalityofproperty-options',
-      'modelvalidatesnumericalityofproperty-options-1',
+      'model-validatesnumericalityof',
+      'model-validatesnumericalityof-1',
       'foo',
       'foo-1',
       'foo-2',
