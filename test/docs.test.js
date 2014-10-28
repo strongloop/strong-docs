@@ -1,6 +1,8 @@
 var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
+var expect = require('chai').expect;
+
 var SAMPLE = [
   'fixtures/a.md',
   'fixtures/b/b.md',
@@ -65,8 +67,8 @@ describe('Docs', function() {
   it('should have unique anchors', function () {
     var docs = new Docs();
     var samples = [
-      'Model.validatesNumericalityOf(property, options)',
-      'Model.validatesNumericalityOf(property, options)',
+      'Model.validatesNumericalityOf',
+      'Model.validatesNumericalityOf',
       'foo',
       'foo',
       'foo',
@@ -75,8 +77,8 @@ describe('Docs', function() {
     ];
     
     var expected = [
-      'modelvalidatesnumericalityofproperty-options',
-      'modelvalidatesnumericalityofproperty-options-1',
+      'model-validatesnumericalityof',
+      'model-validatesnumericalityof-1',
       'foo',
       'foo-1',
       'foo-2',
@@ -156,6 +158,34 @@ describe('Docs', function() {
         assert.equal(sections[5].title, 'workspace');
         done();
       });
+    });
+  });
+
+  describe('ngdoc flavour', function() {
+    var annotation;
+
+    beforeEach(function parseNgDocSourceFile(done) {
+      Docs.parse(
+        {
+          content: ['fixtures/ngdoc.js'],
+          root: __dirname
+        },
+        function(err, docs) {
+          if (err) return done(err);
+          annotation = docs.content[0].sections[0].annotation;
+          done();
+        });
+    });
+
+    it('should include @description', function() {
+      expect(annotation.html).to.contain('Some description');
+    });
+
+    it('should handle multi-param function type', function() {
+      // @param {String|Number}
+      expect(annotation.args[0].types).to.eql(['String', 'Number']);
+      // @param {function(Error=,Object=)}
+      expect(annotation.args[1].types).to.eql(['function(Error=, Object=)']);
     });
   });
 });
