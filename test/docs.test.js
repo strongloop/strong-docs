@@ -63,7 +63,7 @@ describe('Docs', function() {
       done();
     });
   });
-  
+
   it('should have unique anchors', function () {
     var docs = new Docs();
     var samples = [
@@ -75,7 +75,7 @@ describe('Docs', function() {
       'foo bar',
       'foo bar'
     ];
-    
+
     var expected = [
       'model-validatesnumericalityof',
       'model-validatesnumericalityof-1',
@@ -85,12 +85,12 @@ describe('Docs', function() {
       'foo-bar',
       'foo-bar-1'
     ];
-    
+
     samples.forEach(function (s, i) {
       assert.equal(docs.getUniqueAnchor(s), expected[i]);
     });
   });
-  
+
   it('should be able to generate html', function(done) {
     Docs.toHtml({
       content: SAMPLE,
@@ -102,7 +102,7 @@ describe('Docs', function() {
       done();
     });
   });
-  
+
   it('should error when a file does not exist', function (done) {
     Docs.parse({
       content: ['does-not-exist'],
@@ -113,7 +113,7 @@ describe('Docs', function() {
       done();
     });
   });
-  
+
   describe('.readConfig(options, fn)', function(){
     it('should read a config file', function(done) {
       Docs.readConfig({
@@ -126,16 +126,16 @@ describe('Docs', function() {
           assert.equal(config.assets, 'assets');
           assert.equal(config.content[0], 'README.md');
           assert.equal(config.package.name, 'strong-docs');
-          done();          
+          done();
         }
       });
     });
   });
-  
+
   describe('@options', function () {
     it('should define a param of type object with properties following', function (done) {
       Docs.parse({
-        content: ['fixtures/complex-attrs.js'],
+        content: ['fixtures/js/complex-attrs.js'],
         root: __dirname
       }, function (err, docs) {
         done();
@@ -162,30 +162,72 @@ describe('Docs', function() {
   });
 
   describe('ngdoc flavour', function() {
-    var annotation;
 
-    beforeEach(function parseNgDocSourceFile(done) {
-      Docs.parse(
-        {
-          content: ['fixtures/ngdoc.js'],
-          root: __dirname
-        },
-        function(err, docs) {
-          if (err) return done(err);
-          annotation = docs.content[0].sections[0].annotation;
-          done();
-        });
+    it('should include @description', function(done) {
+      parseNgDocSourceFile('fixtures/js/ngdoc.js', done, function (annotation) {
+        expect(annotation.html).to.contain('Some description');
+      })
     });
 
-    it('should include @description', function() {
-      expect(annotation.html).to.contain('Some description');
+    it('should handle multi-param function type', function(done) {
+      parseNgDocSourceFile('fixtures/js/ngdoc.js', done, function(annotation) {
+        // @param {String|Number}
+        expect(annotation.args[0].types).to.eql(['String', 'Number']);
+        // @param {function(Error|undefined, Object|undefined)}
+        expect(annotation.args[1].types).to.eql(['function(Error|undefined, Object|undefined)']);
+      })
     });
 
-    it('should handle multi-param function type', function() {
-      // @param {String|Number}
-      expect(annotation.args[0].types).to.eql(['String', 'Number']);
-      // @param {function(Error=,Object=)}
-      expect(annotation.args[1].types).to.eql(['function(Error=, Object=)']);
-    });
+    describe('@promise', function () {
+
+      it('should be supported', function(done) {
+        parseNgDocSourceFile('fixtures/js/promise-standalone.js', done, function (annotation) {
+          assertPromise(annotation, ['Array'], ['Array']);
+        })
+      });
+
+      it('should be generated from a callback', function(done) {
+        parseNgDocSourceFile('fixtures/js/promise-callback.js', done, function (annotation) {
+          assertPromise(annotation, ['Array'], ['Object']);
+        })
+      });
+
+      it('should be generated from a custom description', function(done) {
+        parseNgDocSourceFile('fixtures/js/promise-custom.js', done, function (annotation) {
+          assertPromise(annotation, ['Array'], ['String']);
+        })
+      });
+
+      it('should include a warning when unresolvable', function(done) {
+        parseNgDocSourceFile('fixtures/js/promise-unresolvable.js', done, function (annotation) {
+          expect(annotation.promise.warning).to.not.be.undefined;
+          expect(annotation.promise.warning).to.contain('Promise cannot be resolved in');
+        })
+      });
+
+    })
+
   });
 });
+
+function parseNgDocSourceFile(file, done, assertion) {
+  Docs.parse(
+    {
+      content: [file],
+      root: __dirname
+    },
+    function(err, docs) {
+      if (err) return done(err);
+      var annotation = docs.content[0].sections[0].annotation;
+      done(assertion(annotation));
+  });
+}
+
+function assertPromise(annotation, paramType, resolveType) {
+  expect(annotation.promise).to.not.be.undefined;
+  expect(annotation.promise.warning).to.be.undefined;
+  expect(annotation.promise.types).to.eql(paramType);
+  expect(annotation.promise.attrs[0]).to.have.property.name;
+  expect(annotation.promise.attrs[0].name).to.equal('resolve');
+  expect(annotation.promise.attrs[0].types).to.eql(resolveType);
+}

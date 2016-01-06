@@ -43,7 +43,17 @@
           <%
         } else if(arg.type === 'callback' && arg.args.length) {
           %>
-          <div class="code-arguments-hdr"><%= arg.name || 'Callback' %></div>           
+
+          <% if (!ann.promise) {%>
+            <div class="code-arguments-hdr">Callback</div>
+          <% } else { %>
+            <div class="code-arguments-hdr">Callback (optional)</div>
+            <p>
+            Optional callback. When the callback function is not provided,
+            a promise is returned instead (see below).
+            </p>
+          <% } %>
+
           <table class="params code-callback-args">
           <tr>
             <th class="hdr-name">Name</th>
@@ -60,7 +70,7 @@
     %>
 
   <% } %>
-  
+
     <% if(Array.isArray(ann.properties) && ann.properties.length) { %>
     <div class="code-arguments-hdr">Class Properties</div>
     <table class="params code-arguments">
@@ -90,10 +100,10 @@
           arg.properties.forEach(renderArg);
           %>
           </table>
-          <% } 
+          <% }
       })
  }
- %> 
+ %>
 
   <% if(ann.attrs.returns) { %>
     <div class="code-arguments-hdr">Returns</div>
@@ -106,13 +116,39 @@
       <% renderArg(ann.attrs.returns) %>
     </table>
   <% } %>
-  
-  <% if(ann.attrs.example) {%> 
+
+  <% if(ann.attrs.example) {%>
     <div class="code-arguments-hdr">Example</div>
     <div class="example">
       <%- md(ann.attrs.example) %>
     </div>
   <% } %>
+
+  <% if(ann.promise) {%>
+    <div class="code-arguments-hdr">Promise</div>
+    <p>
+    This method supports both callback-based and promise-based invocation.
+    Call this method with no callback argument to get back a promise instead.
+    <% if(ann.promise.warning) {%>
+    <div>
+      <b>WARNING</b>: this promise implementation will not resolve according to
+      the callback function.
+    </div>
+    <% } %>
+    </p>
+    <table class="params code-callback-args">
+    <tr>
+      <th class="hdr-name">Handler</th>
+      <th class="hdr-type">Argument</th>
+      <th class="hdr-desc">Description</th>
+    </tr>
+    <%
+    ann.promise.attrs.forEach(renderArg);
+    %>
+    </table>
+
+  <% } %>
+
 </section>
 
 

@@ -99,13 +99,13 @@ Strong-docs uses [Github Flavored Markdown](http://github.github.com/github-flav
 To create a section you only need to provide a markdown header eg. `#` or `###`. The following example creates several sections.
 
     # My Section
-  
+
     This is a paragraph.
-  
+
     ## Sub Section
-  
+
     This is a paragraph within a sub section.
-  
+
 The first section `# My Section` will have a depth of 1 and the second's depth will be 2. See (section depth)[#section-depth] for more info.
 
 #### Links / Anchors
@@ -133,7 +133,7 @@ Strong-docs supports linking to images absolutely (using regular markdown):
 
     ![Alt text](http://foo.com/path/to/img.jpg)
     ![Alt text](http://foo.com/path/to/img.jpg "Optional title")
-    
+
 Or you can bundled your images with your site using the [assets setting](#assets).
 
     {
@@ -173,8 +173,8 @@ exports.escape = function(html){
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 };
-```    
-    
+```
+
 See the [JSDoc](http://usejsdoc.org/) site for more examples.
 
 ##### Ignoring Annotations
@@ -191,7 +191,7 @@ To ignore an annotation change the comment block from `/**` to `/*!`.
 // ...
 ```
 
-You can also use the `@private` attribute to prevent your annotation from being rendered in your doc site. 
+You can also use the `@private` attribute to prevent your annotation from being rendered in your doc site.
 
 ```js
 /**
@@ -227,10 +227,10 @@ The following is a list of configuration properties for strong-docs. You may spe
  - **content** - default: 'content' - specify your [documentation source files](#documentation-source-files)
  - **codeSectionDepth** - default `4` - specify the depth of [JavaScript sections](#section-depth)
  - **assets** - path to your assets directory
- 
+
 ### Content
 
-Documentation will be rendered in the order it is listed in the content array. Below is an example content array with markdown, JavaScript, and an injected section.  
+Documentation will be rendered in the order it is listed in the content array. Below is an example content array with markdown, JavaScript, and an injected section.
 
     [
       "docs/overview.md",
@@ -261,7 +261,7 @@ Link to these files from your docs like this:
 
     ![Alt text](assets/img.jpg)
     [My File](assets/pkg.zip)
-    
+
 ## JSDoc Annotations
 
 ### Supported annnotations
@@ -332,3 +332,88 @@ Link to these files from your docs like this:
 * typedef
 * variation
 * version
+
+### StrongLoop annnotations
+
+#### promise
+
+Syntax: `@promise [{Types}] [resolve object]`
+
+`Types` and `resolve object` must be specified for a promise-only function.
+
+```
+/**
+ * Function to test a standalone promise.
+ *
+ * @param {Array} An array parameter.
+ * @promise {Array} Resolves an Array.
+ *
+ */
+function promiseStandalone(arg) {
+
+}
+```
+
+`Types` and `resolve object` are optional if the function also accepts a callback.
+The promise details are derived from the callback.
+
+```
+/**
+* Function to test promise from a callback.
+*
+* @param {Array} An array parameter.
+*
+* @callback {Function} callback This is the callback.
+* @param {Error} err Error object.
+* @param {Object} instance Model instance.
+*
+* @promise
+*
+*/
+function promiseCallback(arg, callback) {
+
+}
+```
+
+Specifying `Types` and `resolve object` will overwrite the defaults derived from
+the callback.
+
+```
+/**
+* Function to test custom promise details.
+*
+* @param {Array} An array parameter.
+*
+* @callback {Function} callback This is the callback.
+* @param {Error} err Error object.
+* @param {Object} instance Model instance.
+*
+* @promise {String} Custom resolve object of type String.
+*
+*/
+function promiseCustom(arg, callback) {
+
+}
+```
+
+A warning message will be printed on the console and the documentation page,
+if the promise cannot be meaningfully resolve with respect to the callback
+implementation.
+
+```
+/**
+* Function to test unresolvable promise from a callback.
+*
+* @param {Array} An array parameter.
+*
+* @callback {Function} callback This is the callback.
+* @param {Error} err Error object.
+* @param {Object} instanceA first Model instance.
+* @param {Object} instanceB second Model instance.
+* @promise
+*
+*/
+function promiseUnresolvable(arg, callback) {
+
+}
+```
