@@ -50,7 +50,6 @@ a[name] {
 
 /* Annotations */
 .code-arguments-hdr {
-  text-transform: capitalize;
   font-size: 120%;
   margin-top: 20px;
   margin-bottom: 10px;
