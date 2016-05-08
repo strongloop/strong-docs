@@ -143,6 +143,19 @@ describe('Docs', function() {
     });
   });
 
+  describe('@descriptions', function () {
+    it('should be optional', function (done) {
+      Docs.parse({
+        content: ['fixtures/js/optional-description.js'],
+        root: __dirname
+      }, function (err, docs) {
+        assert(docs.content[0].methods[0]);
+        done();
+      });
+    });
+  });
+
+
   describe('complex headers', function () {
     it('should not include markdown', function (done) {
       Docs.parse({
