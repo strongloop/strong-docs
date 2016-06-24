@@ -42,6 +42,16 @@ describe('Docs', function() {
     });
   });
 
+  it('should inclide documentation from external file', function(done) {
+    Docs.toHtml({
+      content: ['fixtures/js/main-class.js', 'fixtures/js/class-method.js'],
+      root: __dirname
+    }, function (err, docs) {
+      assert.equal(docs.split('app.middleware').length, 3);
+      done();
+    });
+  });
+
   it('should call "init" script', function(done) {
     try {
       fs.unlinkSync(path.resolve(__dirname, 'fixtures/generated.md'));
