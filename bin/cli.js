@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var Docs = require('../lib/docs');
-var argv = require('optimist').argv;
+var argv = require('minimist')(process.argv.slice(2));
 var sh = require('shelljs');
 var path = require('path');
 var fs = require('fs');
@@ -13,23 +13,28 @@ var config;
 var outputPath = argv.out || argv.o;
 var previewMode = argv.preview || argv.p;
 var packagePath = argv.package || 'package.json';
-var package;
+var pkg = require(path.join(__dirname, '..', 'package.json'));
 var showHelp = argv.help
              || argv.h
              || !(outputPath || previewMode)
              || outputPath === true;
 
 /*
- * Display help text 
+* Display version
+*/
+
+if (argv.version || argv.v) return console.log(pkg.version)
+
+/*
+ * Display help text
  */
 
-if(showHelp) {
-  console.log(fs.readFileSync(path.join(__dirname, 'help.txt'), 'utf8'));
-  process.exit();
+if (showHelp) {
+  return console.log(fs.readFileSync(path.join(__dirname, 'help.txt'), 'utf8'));
 }
 
 /*
- * Config 
+ * Config
  */
 
 configPaths.configPath = path.join(process.cwd(), configPath);
@@ -65,7 +70,7 @@ function getAssetData(config) {
 }
 
 /*
- * Preview mode 
+ * Preview mode
  */
 
 if(previewMode) {
@@ -100,7 +105,7 @@ if(previewMode) {
   });
 
   app.use(express.static(path.join(__dirname, '..', 'public')));
-  
+
   app.listen(port, function () {
     if (process.stdout.isTTY) {
       console.log('Preview your docs @ http://localhost:' + port);
@@ -113,14 +118,14 @@ if(previewMode) {
 }
 
 /*
- * Output mode 
+ * Output mode
  */
 
 if(outputPath) {
   var publicAssets = path.join(__dirname, '..', 'public');
-  
+
   sh.cp('-r', path.join(publicAssets, '*'), outputPath);
-  
+
   Docs.readConfig(configPaths, function(err, config) {
     var assets = getAssetData(config);
 

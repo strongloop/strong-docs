@@ -1,9 +1,10 @@
 Usage:
-  
+
   sdocs <arguments>
-  
+
 Arguments:
 
+  --version, -v   Print the sdocs version
   --config, -c    Relative path to config file. Eg. `foo/docs.json`
   --out, -o       Output path for generated docs directory
   --preview, -p   Start a preview server
