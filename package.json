@@ -23,7 +23,9 @@
     "highlight.js": "~7.3.0",
     "marked": "~0.2.9",
     "glob": "3.2.6",
-    "underscore.string": "~2.3.3"
+    "underscore.string": "~2.3.3",
+    "fs-extra": "^3.0.1",
+    "typedoc": "0.6.0"
   },
   "devDependencies": {
     "chai": "^1.9.2",

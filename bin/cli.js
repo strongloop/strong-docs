@@ -18,6 +18,8 @@ var showHelp = argv.help
              || argv.h
              || !(outputPath || previewMode)
              || outputPath === true;
+var type = argv.type || argv.t; 
+var ts = require('./ts.js');
 
 /*
  * Display help text 
@@ -68,7 +70,7 @@ function getAssetData(config) {
  * Preview mode 
  */
 
-if(previewMode) {
+if(previewMode  && type !== 'ts') {
   var app = express();
 
   // build the preview app on every request
@@ -98,7 +100,6 @@ if(previewMode) {
       sapp.handle(req, res, next);
     });
   });
-
   app.use(express.static(path.join(__dirname, '..', 'public')));
   
   app.listen(port, function () {
@@ -116,7 +117,7 @@ if(previewMode) {
  * Output mode 
  */
 
-if(outputPath) {
+if(outputPath && type !== 'ts') {
   var publicAssets = path.join(__dirname, '..', 'public');
   
   sh.cp('-r', path.join(publicAssets, '*'), outputPath);
@@ -136,8 +137,14 @@ if(outputPath) {
         console.error(err);
         process.exit();
       } else {
-        html.to(path.join(outputPath, 'index.html'));
+          html.to(path.join(outputPath, 'index.html'));
       }
     });
   });
 }
+
+if(type == 'ts'){
+  ts(outputPath, previewMode);
+}
+
+
