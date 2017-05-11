@@ -70,7 +70,7 @@ function getAssetData(config) {
  * Preview mode 
  */
 
-if(previewMode  && type !== 'ts') {
+if (previewMode && type !== 'ts') {
   var app = express();
 
   // build the preview app on every request
@@ -117,7 +117,7 @@ if(previewMode  && type !== 'ts') {
  * Output mode 
  */
 
-if(outputPath && type !== 'ts') {
+if (outputPath && type !== 'ts') {
   var publicAssets = path.join(__dirname, '..', 'public');
   
   sh.cp('-r', path.join(publicAssets, '*'), outputPath);
@@ -137,14 +137,12 @@ if(outputPath && type !== 'ts') {
         console.error(err);
         process.exit();
       } else {
-          html.to(path.join(outputPath, 'index.html'));
+        html.to(path.join(outputPath, 'index.html'));
       }
     });
   });
 }
 
-if(type == 'ts'){
+if (type == 'ts') {
   ts(outputPath, previewMode);
 }
-
-
