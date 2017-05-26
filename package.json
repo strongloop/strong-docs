@@ -25,7 +25,8 @@
     "glob": "3.2.6",
     "underscore.string": "~2.3.3",
     "fs-extra": "^3.0.1",
-    "typedoc": "0.6.0"
+    "typedoc": "0.6.0",
+    "jsonata": "^1.2.0"
   },
   "devDependencies": {
     "chai": "^1.9.2",
