@@ -68,7 +68,7 @@ function getAssetData(config) {
  * Preview mode 
  */
 
-if (previewMode) {
+if(previewMode) {
   var app = express();
 
   // build the preview app on every request
@@ -116,7 +116,7 @@ if (previewMode) {
  * Output mode 
  */
 
-if (outputPath) {
+if(outputPath) {
   var publicAssets = path.join(__dirname, '..', 'public');
   
   sh.cp('-r', path.join(publicAssets, '*'), outputPath);
