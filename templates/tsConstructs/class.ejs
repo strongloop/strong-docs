@@ -1,64 +1,76 @@
-<%
-documentClass(node, 0);
-
-function documentClass(node, lvl){ 
-%>  <br/><br/> 
-    <a id="<%-node.kindString%><%-node.name%>"><h3><%-node.kindString%> : <%-node.name%></h3></a> <br/>
-    <!--console.log("%s %s : %s", "-".repeat(lvl), node.kindString, node.name);-->
-<%    
-    const children = node.children;
+<section class="code-doc ">
+    <a name="<%-anchorId%>"></a>
+    <h3 class="code-ref"><%-kindString%>: new <%-name%>()</h3>
+    <%
+      var comment = comment || null;
+      if(comment){%>
+        <div class="code-desc">
+            <p><%-comment.shortText%>  </p>
+        </div>
+    <%}%>
+</section>
+<%   
+    const children = children;
+    var properties = [];
     if(children && children.length > 0){
-        lvl++;
         children.forEach(function(child){
             if(child.kindString === 'Property'){
-                documentProperty(child, lvl);
+                properties.push(child);
             }
-            if(child.kindString === 'Constructor'){
-                documentConstructor(child, lvl);
-            }
-            if(child.kindString === 'Method'){
-                documentMethod(child, lvl);
-            }
-        })  
-    }
-}
-
-function documentProperty(node, lvl){
-%>   
-    <span></span><span></span><%-node.kindString%>   <%-node.name%> Type: <%-node.type.name%> <br/>
-    <!--console.log("%s %s: %s, Type: %s", "-".repeat(lvl), node.kindString, node.name, node.type.name);-->
-<%
-}
-
-function documentConstructor(node, lvl){
-%>  
-    <h4><%-node.kindString%>:   <%-node.name%></h4> 
-    <span></span>Signature: <i><%-node.signatures[0].name%></i>,   Returns: <%-node.signatures[0].type.name%> <br/>
-    <!--console.log("%s %s: %s, Signature: %s, Returns: %s", "-".repeat(lvl), node.kindString, node.name, node.signatures[0].name, node.signatures[0].type.name);-->
+        })
+        if(properties && properties.length > 0){
+%>
+            <%- include('properties', {'properties': properties}); %>
 <% 
-    const parameters = node.signatures[0].parameters;
-    if(parameters && parameters.length > 0){
-        lvl++;
-        parameters.forEach(function(param){
-            documentParameter(param, lvl);
-        });
+        }
+        children.forEach(function(child){
+            if(child.kindString === 'Constructor'){%>
+                 <%- include('constructor', child); %>
+            <%}
+            if(child.kindString === 'Method'){%>
+                <%- include('function', child); %>
+            <%}
+        })
     }
-}
-
-function documentMethod(node, lvl){
-   documentConstructor(node, lvl);
-}
-
-function documentParameter(node, lvl){
-    documentProperty(node, lvl);
-}
 %>
 
-<style type="text/css">
-
-span {
-  display: inline-block;
-  width: 50px;
-}
-
-</style>
+<!--<section class="code-doc ">
+    <a name="point-fromstring"></a>
+    <h4 class="code-ref">Point.fromString(str)</h4>
+    <div class="code-desc">
+        <p>Convert a string containing two comma-separated numbers into a point.</p>
+    </div>
+    <div class="code-arguments-hdr">Arguments</div>
+    <table class="params code-arguments">
+        <tr>
+            <th class="hdr-name">Name</th>
+            <th class="hdr-type">Type</th>
+            <th class="hdr-desc">Description</th>
+        </tr>
+        <tr class="code-arg">
+            <td>
+                <strong class="code-arg-name">str</strong>
+            </td>
+            <td class="code-arg-types">
+                <code>string</code>
+            </td>
+            <td class="code-arg-desc">
+                <p> The string containing two comma-separated numbers.</p>
+            </td>
+        </tr>
+    </table>
+</section>
+<section class="code-doc ">
+    <a name="point-prototype-getx"></a>
+    <h4 class="code-ref">point.getX()</h4>
+    <div class="code-desc">
+        <p>Get the x value.</p>
+    </div>
+</section>
+<section class="code-doc ">
+    <a name="point-prototype-gety"></a>
+    <h4 class="code-ref">point.getY()</h4>
+    <div class="code-desc">
+        <p>Get the y value.</p>
+    </div>
+</section>-->
