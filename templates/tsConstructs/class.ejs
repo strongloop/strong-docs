@@ -14,7 +14,7 @@
     var properties = [];
     if(children && children.length > 0){
         children.forEach(function(child){
-            if(child.kindString === 'Property'){
+            if(child.kindString === 'Property' && !child.flags.isPrivate){
                 properties.push(child);
             }
         })
@@ -27,7 +27,7 @@
             if(child.kindString === 'Constructor'){%>
                  <%- include('constructor', child); %>
             <%}
-            if(child.kindString === 'Method'){%>
+            if(child.kindString === 'Method' && !child.flags.isPrivate){%>
                 <%- include('function', child); %>
             <%}
         })
