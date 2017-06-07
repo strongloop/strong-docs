@@ -3,7 +3,7 @@
     <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <%-signatures[0].type.name%></h4>
     <div class="code-desc">
         <%
-          var comment = comment || null;
+          var comment = comment || (signatures && signatures[0] && signatures[0].comment) || null;
           if(comment){%>
             <p><%-comment.shortText%></p>
         <%}%>
