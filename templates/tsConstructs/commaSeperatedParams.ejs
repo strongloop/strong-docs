@@ -1,0 +1,18 @@
+<%
+   var argumentStr = "";
+   var params = params || null;
+   var firstParam = true;
+   if(params && params.length > 0){
+       params.forEach(function(param){
+           if(firstParam){
+                firstParam = false;
+                argumentStr = param.name  + ": " + param.type.name;
+           }else{
+                argumentStr = argumentStr + ", " + param.name  + ": " + param.type.name;
+           }
+       });
+   } 
+
+%>
+
+<%-argumentStr%>

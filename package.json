@@ -17,13 +17,14 @@
     "express": "~3.4.0",
     "js-yaml": "~2.1.0",
     "dox": "0.8.0",
-    "ejs": "~0.8.4",
+    "ejs": "~2.5.6",
     "strong-task-emitter": "~0.0.5",
     "markdown": "~0.5.0",
     "highlight.js": "~7.3.0",
     "marked": "~0.2.9",
     "glob": "3.2.6",
-    "underscore.string": "~2.3.3"
+    "underscore.string": "~2.3.3",
+    "typedoc": "0.6.0"
   },
   "devDependencies": {
     "chai": "^1.9.2",
