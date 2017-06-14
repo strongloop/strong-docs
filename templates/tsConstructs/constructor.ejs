@@ -1,6 +1,16 @@
 <section class="code-doc ">
     <a name="<%-anchorId%>"></a>
-    <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <%-signatures[0].type.name%></h4>
+<%
+  if (signatures[0].type.type === 'reference') {
+%>
+  <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <a href="#<%-signatures[0].type.name%>"><%-signatures[0].type.name%></a></h4>
+<%
+  } else {
+%>
+  <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <%-signatures[0].type.name%></h4>  
+<%
+  }
+%>    
     <div class="code-desc">
         <%
           var comment = comment || (signatures && signatures[0] && signatures[0].comment) || null;
@@ -26,12 +36,12 @@
                     <strong class="code-arg-name"><%-param.name%></strong>
                 </td>
                 <td class="code-arg-types">
-                    <code><%-param.type.name%></code>
+                    <%- include('type', param); %>
                 </td>
                 <td class="code-arg-desc">
                     <%if(param.comment){%>
                         <div class="code-desc">
-                            <p><%-param.comment.shortText%></p>
+                            <p><%-param.comment.text%></p>
                         </div>
                     <%}%>
                 </td>

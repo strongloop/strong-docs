@@ -24,7 +24,7 @@
     "marked": "~0.2.9",
     "glob": "3.2.6",
     "underscore.string": "~2.3.3",
-    "typedoc": "0.6.0"
+    "typedoc": "0.7.1"
   },
   "devDependencies": {
     "chai": "^1.9.2",
