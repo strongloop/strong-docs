@@ -44,12 +44,13 @@
                 <td class="code-arg-desc">
                     <%if(param.comment){%>
                         <div class="code-desc">
+                            <p><%-param.comment.shortText%></p>
                             <p><%-param.comment.text%></p>
                         </div>
                     <%}%>
                 </td>
             </tr>
- <%            
+<%            
         });
 %>           
     </table>
