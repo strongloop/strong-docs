@@ -10,7 +10,7 @@
     <%}%>
 </section>
 <%   
-    const children = children;
+    var children = children || null;
     var properties = [];
     if(children && children.length > 0){
         children.forEach(function(child){
