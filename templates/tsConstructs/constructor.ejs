@@ -16,6 +16,7 @@
           var comment = comment || (signatures && signatures[0] && signatures[0].comment) || null;
           if(comment){%>
             <p><%-comment.shortText%></p>
+            Returns: <p><%-comment.returns%></p>
         <%}%>
     </div>
 <%
