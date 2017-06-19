@@ -31,9 +31,9 @@
       var firstArg = true; 
       var retStr = '';
       type.types.forEach(function(typ){ 
-        var str = '';   
+        var str = '';  
         if(typ.name === 'Promise'){
-            str = typ.name + ' of ' + typ.typeArguments ? typ.typeArguments[0].name : '';
+            str = (typ.name + ' of ') + (typ.typeArguments ? typ.typeArguments[0].name : '');
         }else{
             str = typ.name;
         }
