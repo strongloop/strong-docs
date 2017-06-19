@@ -1,25 +1,22 @@
 <section class="code-doc ">
     <a name="<%-anchorId%>"></a>
 <%
-if(signatures && signatures[0]){
-    if (signatures[0].type.type === 'reference') {
-    %>
-    <h4 class="code-ref"><%-name%> (<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <a href="#<%-signatures[0].type.name%>"><%-signatures[0].type.name%></a></h4>
-    <%
-    } else {
-    %>
-    <h4 class="code-ref"><%-name%> (<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <%-signatures[0].type.name%></h4>  
-    <%
-    }
-} else {
-%> 
-    <h4 class="code-ref"><%-name%></h4>
+  if(type && type.declaration && (type.declaration.signatures || type.declaration.indexSignature)){
+  var signature = (type.declaration.signatures && type.declaration.signatures[0]) ||
+                  (type.declaration.indexSignature && type.declaration.indexSignature[0]);
+    if (signature.type.type === 'reference') {
+%>
+      <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <a href="#<%-signature.type.name%>"><%-signature.type.name%></a></h4>
 <%
-}
-%>  
+    } else {
+%>
+      <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <%-signature.type.name%></h4>  
+<%
+    }
+%> 
     <div class="code-desc">
         <%
-          var comment = comment || (signatures && signatures[0] && signatures[0].comment) || null;
+          var comment = signature.comment || null;
           if(comment){%>
             <p><%-comment.shortText%></p>
             <p><%-comment.text%></p>
@@ -32,8 +29,7 @@ if(signatures && signatures[0]){
         %>
     </div>
 <%
-    if(signatures){ 
-    const parameters = signatures[0].parameters;
+    const parameters = signature.parameters;
     if(parameters && parameters.length > 0){
 %>
     <div class="code-arguments-hdr">Arguments</div>
@@ -68,6 +64,6 @@ if(signatures && signatures[0]){
     </table>
 <%        
     }
-    } 
-%>
+  }
+%> 
 </section>

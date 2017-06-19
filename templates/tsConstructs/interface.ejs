@@ -24,10 +24,10 @@
 <% 
         }
         children.forEach(function(child){
-            if(child.kindString === 'Constructor'){%>
+            if(child.kindString === 'Constructor' && child.shouldDocument){%>
                  <%- include('constructor', child); %>
             <%}
-            if(child.kindString === 'Method' && !child.flags.isPrivate){%>
+            if(child.kindString === 'Method' && child.shouldDocument){%>
                 <%- include('function', child); %>
             <%}
         })

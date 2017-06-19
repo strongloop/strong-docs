@@ -1,0 +1,28 @@
+ <%
+  if(type.type === 'intrinsic'){
+%> 
+<section class="code-doc ">
+    <a name="<%-anchorId%>"></a>    
+    <h4 class="code-ref"><%-name%> = <%-type.name%></h4> 
+</section>    
+<%
+  } else if (type.type === 'array'){
+%> 
+<section class="code-doc ">
+    <a name="<%-anchorId%>"></a>    
+    <h4 class="code-ref"><%-name%> = <%-type.elementType.name%>[]</h4> 
+</section>   
+<%
+  } else if (type.type === 'reference'){
+%>    
+<section class="code-doc ">
+    <a name="<%-anchorId%>"></a>    
+    <h4 class="code-ref"><%-name%> = <%-type.name%></h4> 
+</section>    
+<%
+  } else if (type.type === 'reflection'){
+%>
+    <% include typeAliasReflection %>
+<%
+  }
+%>
