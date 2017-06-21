@@ -16,7 +16,19 @@
 %> 
     <div class="code-desc">
         <%
-          var comment = signature.comment || null;
+          var comment = comment || comment_copy || signature.comment || null;
+            var commentsMap;
+            if(comment && comment.tags){
+                commentsMap = [];
+                comment.tags.forEach(function(tag){
+                    if(tag.tag === 'param'){
+                        commentsMap[tag.param] = tag.text;
+                    }
+                    if(tag.tag === 'returns'){
+                        commentsMap[tag.tag] = tag.text;
+                    }
+                });   
+            }
           if(comment){%>
             <p><%-comment.shortText%></p>
             <p><%-comment.text%></p>
@@ -25,7 +37,11 @@
         %>
             Returns: <p><%-comment.returns%></p>
         <%    
-          }  
+          } else if(commentsMap){
+        %>   
+            Returns: <p><%-commentsMap['returns']%></p>   
+        <%
+          }
         %>
     </div>
 <%
@@ -54,6 +70,10 @@
                         <div class="code-desc">
                             <p><%-param.comment.shortText%></p>
                             <p><%-param.comment.text%></p>
+                        </div>
+                    <%} else if(commentsMap){%>
+                        <div class="code-desc">
+                            <p><%-commentsMap[param.name]%></p>
                         </div>
                     <%}%>
                 </td>
