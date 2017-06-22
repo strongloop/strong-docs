@@ -10,7 +10,7 @@
     <%}%>
 </section>
 <%   
-    const children = children;
+    var children = children || null;
     var properties = [];
     if(children && children.length > 0){
         children.forEach(function(child){
@@ -24,10 +24,10 @@
 <% 
         }
         children.forEach(function(child){
-            if(child.kindString === 'Constructor'){%>
+            if(child.kindString === 'Constructor' && child.shouldDocument){%>
                  <%- include('constructor', child); %>
             <%}
-            if(child.kindString === 'Method' && !child.flags.isPrivate){%>
+            if(child.kindString === 'Method' && child.shouldDocument){%>
                 <%- include('function', child); %>
             <%}
         })

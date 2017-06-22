@@ -6,11 +6,12 @@
       if(comment){%>
         <div class="code-desc">
             <p><%-comment.shortText%>  </p>
+            <p><%-comment.text%>  </p>
         </div>
     <%}%>
 </section>
 <%   
-    const children = children;
+    var children = children || null;
     var properties = [];
     if(children && children.length > 0){
         children.forEach(function(child){

@@ -1,0 +1,15 @@
+<%
+  if (type.type === 'reference') {
+%>
+  <code><a href="#<%-type.name%>"><%-type.name%></a></code>
+<%
+  } else if (type.type === 'reflection'){
+%> 
+  <code>Function</code>
+<%
+  } else {
+%>
+  <code><%-type.name%></code>
+<%
+  }
+%>

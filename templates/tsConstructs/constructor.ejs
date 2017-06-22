@@ -1,18 +1,40 @@
 <section class="code-doc ">
     <a name="<%-anchorId%>"></a>
-    <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <%-signatures[0].type.name%></h4>
+<%
+if(signatures && signatures[0]){
+    if (signatures[0].type.type === 'reference') {
+    %>
+    <h4 class="code-ref"><%-name%> (<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <a href="#<%-signatures[0].type.name%>"><%-signatures[0].type.name%></a></h4>
+    <%
+    } else {
+    %>
+    <h4 class="code-ref"><%-name%> (<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <%-signatures[0].type.name%></h4>  
+    <%
+    }
+} else {
+%> 
+    <h4 class="code-ref"><%-name%></h4>
+<%
+}
+%>  
     <div class="code-desc">
         <%
           var comment = comment || (signatures && signatures[0] && signatures[0].comment) || null;
           if(comment){%>
             <p><%-comment.shortText%></p>
-        <%}%>
+            <p><%-comment.text%></p>
+        <%}
+          if(comment && comment.returns){
+        %>
+            Returns: <p><%-comment.returns%></p>
+        <%    
+          }  
+        %>
     </div>
 <%
     if(signatures){ 
     const parameters = signatures[0].parameters;
     if(parameters && parameters.length > 0){
-        parameters.forEach(function(param){
 %>
     <div class="code-arguments-hdr">Arguments</div>
     <table class="params code-arguments">
@@ -21,24 +43,30 @@
             <th class="hdr-type">Type</th>
             <th class="hdr-desc">Description</th>
         </tr>
+<%        
+        parameters.forEach(function(param){
+%>        
             <tr class="code-arg">
                 <td>
                     <strong class="code-arg-name"><%-param.name%></strong>
                 </td>
                 <td class="code-arg-types">
-                    <code><%-param.type.name%></code>
+                    <%- include('type', param); %>
                 </td>
                 <td class="code-arg-desc">
                     <%if(param.comment){%>
                         <div class="code-desc">
                             <p><%-param.comment.shortText%></p>
+                            <p><%-param.comment.text%></p>
                         </div>
                     <%}%>
                 </td>
             </tr>
-    </table>
 <%            
         });
+%>           
+    </table>
+<%        
     }
     } 
 %>

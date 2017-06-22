@@ -17,7 +17,7 @@
                     <strong class="code-arg-name"><%-param.name%></strong>
                 </td>
                 <td class="code-arg-types">
-                    <code><%-param.type.name%></code>
+                    <%- include('type', param); %>
                 </td>
                 <td class="code-arg-desc">
                     <%if(param.comment){%>
