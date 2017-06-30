@@ -33,7 +33,7 @@
       type.types.forEach(function(typ){ 
         var str = '';  
         if(typ.name === 'Promise'){
-            str = (typ.name + ' of ') + (typ.typeArguments ? typ.typeArguments[0].name : '');
+            str = (typ.name + ' &lt;') + (typ.typeArguments ? typ.typeArguments[0].name + '&gt; ' : '');
         }else{
             str = typ.name;
         }
