@@ -4,11 +4,11 @@
 if(signatures && signatures[0]){
     if (signatures[0].type.type === 'reference') {
     %>
-    <h4 class="code-ref"><%-name%> (<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <a href="#<%-signatures[0].type.name%>"><%-signatures[0].type.name%></a></h4>
+    <h4 class="code-ref"><%-name%>( <%-include('commaSeperatedParams', {'params': signatures[0].parameters});%> ) : <a href="#<%-signatures[0].type.name%>"><%-signatures[0].type.name%></a></h4>
     <%
     } else {
     %>
-    <h4 class="code-ref"><%-name%> (<%- include('commaSeperatedParams', {'params': signatures[0].parameters}); %>): <%-signatures[0].type.name%></h4>  
+    <h4 class="code-ref"><%-name%>( <%-include('commaSeperatedParams', {'params': signatures[0].parameters});%> ) : <%-signatures[0].type.name%></h4>  
     <%
     }
 } else {
