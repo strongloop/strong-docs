@@ -13,7 +13,8 @@
             if (param.type.type === 'reflection') {
                 str = getSignatureForFunction(param);
             } else {
-                str = param.name  + ": " + param.type.name;
+                str = param.name  + ": " + (param.type.type === 'reference' ? "<a href=\"#" + 
+                param.type.name + "\">" + param.type.name + "</a>" : param.type.name);
             }
             if(firstParam){
                     firstParam = false;

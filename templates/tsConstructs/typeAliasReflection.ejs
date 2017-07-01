@@ -1,16 +1,20 @@
 <section class="code-doc ">
     <a name="<%-anchorId%>"></a>
 <%
-  if(type && type.declaration && (type.declaration.signatures || type.declaration.indexSignature)){
-  var signature = (type.declaration.signatures && type.declaration.signatures[0]) ||
-                  (type.declaration.indexSignature && type.declaration.indexSignature[0]);
-    if (signature.type.type === 'reference') {
+    if(type && type.declaration && (type.declaration.signatures || type.declaration.indexSignature)){
+    var signature = (type.declaration.signatures && type.declaration.signatures[0]) ||
+                  (type.declaration.indexSignature && type.declaration.indexSignature[0]);              
+    if (signature.type.type === 'reference' && signature.type.name !== 'Promise') {
 %>
-      <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <a href="#<%-signature.type.name%>"><%-signature.type.name%></a></h4>
+        <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <a href="#<%-signature.type.name%>"><%-signature.type.name%></a></h4>
 <%
-    } else {
+    } else if (signature.type.type === 'reference' && signature.type.name === 'Promise') {
 %>
-      <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <%-signature.type.name%></h4>  
+        <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <%-signature.type.name%>&lt;<a href="#<%-signature.type.typeArguments[0].name%>"><%-signature.type.typeArguments[0].name%></a>&gt;</h4>
+<%        
+    }else{
+%>
+        <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <%-signature.type.name%></h4>  
 <%
     }
 %> 
