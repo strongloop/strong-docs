@@ -12,7 +12,7 @@
 %>
         <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <%-signature.type.name%>&lt;<a href="#<%-signature.type.typeArguments[0].name%>"><%-signature.type.typeArguments[0].name%></a>&gt;</h4>
 <%        
-    }else{
+    } else {
 %>
         <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <%-signature.type.name%></h4>  
 <%
