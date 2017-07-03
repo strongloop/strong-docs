@@ -1,35 +1,6 @@
 <section class="code-doc ">
     <a name="<%-anchorId%>"></a>
     <h3 class="code-ref"><%-kindString%>: <%-name%></h3>
-    <%
-      var comment = comment || null;
-      if(comment){%>
-        <div class="code-desc">
-            <p><%-comment.shortText%>  </p>
-        </div>
-    <%}%>
+    <% include comments %>
 </section>
-<%   
-    var children = children || null;
-    var properties = [];
-    if(children && children.length > 0){
-        children.forEach(function(child){
-            if(child.kindString === 'Property' && !child.flags.isPrivate){
-                properties.push(child);
-            }
-        })
-        if(properties && properties.length > 0){
-%>
-            <%- include('properties', {'properties': properties}); %>
-<% 
-        }
-        children.forEach(function(child){
-            if(child.kindString === 'Constructor' && child.shouldDocument){%>
-                 <%- include('constructor', child); %>
-            <%}
-            if(child.kindString === 'Method' && child.shouldDocument){%>
-                <%- include('function', child); %>
-            <%}
-        })
-    }
-%>
+<% include childrens %>

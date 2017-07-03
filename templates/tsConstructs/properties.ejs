@@ -20,11 +20,7 @@
                     <%- include('type', param); %>
                 </td>
                 <td class="code-arg-desc">
-                    <%if(param.comment){%>
-                        <div class="code-desc">
-                            <p><%-param.comment.shortText%></p>
-                        </div>
-                    <%}%>
+                    <%- include('comments', param); %>
                 </td>
             </tr>
         <%            
