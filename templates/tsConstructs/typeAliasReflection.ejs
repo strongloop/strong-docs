@@ -6,33 +6,33 @@
                   (type.declaration.indexSignature && type.declaration.indexSignature[0]);              
     if (signature.type.type === 'reference' && signature.type.name !== 'Promise') {
 %>
-        <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <a href="#<%-signature.type.name%>"><%-signature.type.name%></a></h4>
+        <h4 class="code-ref"><%-name%>(<%-tsHelpers.commaSepParams(signature.parameters)%>): <a href="#<%-signature.type.name%>"><%-signature.type.name%></a></h4>
 <%
     } else if (signature.type.type === 'reference' && signature.type.name === 'Promise') {
 %>
-        <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <%-signature.type.name%>&lt;<a href="#<%-signature.type.typeArguments[0].name%>"><%-signature.type.typeArguments[0].name%></a>&gt;</h4>
+        <h4 class="code-ref"><%-name%>(<%-tsHelpers.commaSepParams(signature.parameters)%>): <%-signature.type.name%>&lt;<a href="#<%-signature.type.typeArguments[0].name%>"><%-signature.type.typeArguments[0].name%></a>&gt;</h4>
 <%        
     } else {
 %>
-        <h4 class="code-ref"><%-name%>(<%- include('commaSeperatedParams', {'params': signature.parameters}); %>): <%-signature.type.name%></h4>  
+        <h4 class="code-ref"><%-name%>(<%-tsHelpers.commaSepParams(signature.parameters)%>): <%-signature.type.name%></h4>  
 <%
     }
 %> 
     <div class="code-desc">
         <%
-          var comment = comment || comment_copy || signature.comment || null;
-            var commentsMap;
-            if(comment && comment.tags){
-                commentsMap = [];
-                comment.tags.forEach(function(tag){
-                    if(tag.tag === 'param'){
-                        commentsMap[tag.param] = tag.text;
-                    }
-                    if(tag.tag === 'returns'){
-                        commentsMap[tag.tag] = tag.text;
-                    }
-                });   
-            }
+var comment = comment || comment_copy || signature.comment || null;
+var commentsMap;
+if(comment && comment.tags){
+    commentsMap = [];
+    comment.tags.forEach(function(tag){
+        if(tag.tag === 'param'){
+            commentsMap[tag.param] = tag.text;
+        }
+        if(tag.tag === 'returns'){
+            commentsMap[tag.tag] = tag.text;
+        }
+    });   
+}
           if(comment){%>
             <p><%-comment.shortText%></p>
             <p><%-comment.text%></p>
@@ -61,6 +61,7 @@
         </tr>
 <%        
         parameters.forEach(function(param){
+            param.commentsMap = commentsMap;
 %>        
             <tr class="code-arg">
                 <td>
@@ -70,7 +71,7 @@
                     <%- include('type', param); %>
                 </td>
                 <td class="code-arg-desc">
-                    <%if(param.comment){%>
+                     <%if(param.comment){%>
                         <div class="code-desc">
                             <p><%-param.comment.shortText%></p>
                             <p><%-param.comment.text%></p>

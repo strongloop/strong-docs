@@ -1,0 +1,23 @@
+<%   
+    var properties = [];
+    if(locals.children && locals.children.length > 0){
+        children.forEach(function(child){
+            if(child.kindString === 'Property' && child.shouldDocument){
+                properties.push(child);
+            }
+        })
+        if(properties && properties.length > 0){
+%>
+            <%- include('properties', {'properties': properties}); %>
+<% 
+        }
+        children.forEach(function(child){
+            if(child.kindString === 'Constructor' && child.shouldDocument){%>
+                 <%- include('constructor', child); %>
+            <%}
+            if(child.kindString === 'Method' && child.shouldDocument){%>
+                <%- include('function', child); %>
+            <%}
+        })
+    }
+%>
