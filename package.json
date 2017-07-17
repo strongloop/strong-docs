@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "chai": "^1.9.2",
-    "mocha": "~1.13.0"
+    "mocha": "^3.4.2"
   },
   "bin": {
     "sdocs": "./bin/cli.js"
