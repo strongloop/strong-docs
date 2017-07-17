@@ -27,7 +27,7 @@
     "shelljs": "~0.2.5",
     "strong-task-emitter": "~0.0.5",
     "typedoc": "0.7.1",
-    "underscore.string": "~2.3.3"
+    "underscore.string": "^3.3.4"
   },
   "devDependencies": {
     "chai": "^4.1.0",
