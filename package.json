@@ -30,7 +30,7 @@
     "underscore.string": "~2.3.3"
   },
   "devDependencies": {
-    "chai": "^1.9.2",
+    "chai": "^4.1.0",
     "mocha": "^3.4.2"
   },
   "bin": {
