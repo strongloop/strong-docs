@@ -134,7 +134,7 @@ if(outputPath) {
     Docs.toHtml(config, function (err, html) {
       if(err) {
         console.error(err);
-        process.exit();
+        process.exit(1);
       } else {
         html.to(path.join(outputPath, 'index.html'));
       }
