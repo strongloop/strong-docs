@@ -17,12 +17,12 @@
     "dox": "0.8.0",
     "ejs": "~2.5.6",
     "express": "^4.15.3",
+    "fs-extra": "^4.0.0",
     "glob": "^7.1.2",
     "highlight.js": "~7.3.0",
     "markdown": "~0.5.0",
     "marked": "~0.2.9",
     "optimist": "~0.6.0",
-    "shelljs": "^0.7.8",
     "strong-task-emitter": "~0.0.5",
     "typedoc": "0.7.1",
     "underscore.string": "^3.3.4"
