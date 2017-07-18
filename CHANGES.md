@@ -1,3 +1,11 @@
+2017-07-18, Version 1.5.1
+=========================
+
+ * Fix handling of missing asset dirs, drop shelljs (Miroslav Bajtoš)
+
+ * Exit with non-zero status on error (Miroslav Bajtoš)
+
+
 2017-07-18, Version 1.5.0
 =========================
 
