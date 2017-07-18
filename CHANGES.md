@@ -1,3 +1,37 @@
+2017-07-18, Version 1.5.0
+=========================
+
+ * Remove unused "js-yaml" dependency (Miroslav Bajtoš)
+
+ * Remove unused "opener" dependency (Miroslav Bajtoš)
+
+ * Update shelljs to latest (Miroslav Bajtoš)
+
+ * Update debug to latest (Miroslav Bajtoš)
+
+ * Update underscore.string to latest (Miroslav Bajtoš)
+
+ * Update chai to latest (Miroslav Bajtoš)
+
+ * Update mocha to latest (Miroslav Bajtoš)
+
+ * Upgrade express to latest (Miroslav Bajtoš)
+
+ * Upgrade glob to latest (Miroslav Bajtoš)
+
+ * Drop support for Node.js version pre-4.0 (Miroslav Bajtoš)
+
+
+2017-07-03, Version 1.4.0
+=========================
+
+ * Docs1 (#91) (Mahesh Patsute)
+
+ * Adding placeholders for modules and versions (#90) (Mahesh Patsute)
+
+ * Type script (#89) (Mahesh Patsute)
+
+
 2017-06-26, Version 1.3.1
 =========================
 
