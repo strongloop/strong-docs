@@ -6,7 +6,8 @@ var TSParser = require('../lib/tsParser');
 
 describe('TypeScript Parser Test', function() {
 
-  it('should parse this TS file', function(done) {
+  it('should parse this TS file', function() {
+    this.timeout(50000);
     var file = path.join(__dirname, 'fixtures' , 'ts', 'Greeter.ts');
     var tsFiles = [];
     tsFiles.push(file);
@@ -14,7 +15,6 @@ describe('TypeScript Parser Test', function() {
     var parsedData = tsParser.parse();
     assert.equal(parsedData.sections.length, 3);
     assert.equal(parsedData.constructs.length, 1);
-    done();
   });
 
 });
