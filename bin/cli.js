@@ -2,9 +2,8 @@
 
 var Docs = require('../lib/docs');
 var argv = require('optimist').argv;
-var sh = require('shelljs');
 var path = require('path');
-var fs = require('fs');
+var fs = require('fs-extra');
 var port = argv.port || process.env.PORT || 3000;
 var express = require('express');
 var configPaths = {};
@@ -20,7 +19,7 @@ var showHelp = argv.help
              || outputPath === true;
 
 /*
- * Display help text 
+ * Display help text
  */
 
 if(showHelp) {
@@ -29,7 +28,7 @@ if(showHelp) {
 }
 
 /*
- * Config 
+ * Config
  */
 
 configPaths.configPath = path.join(process.cwd(), configPath);
@@ -65,7 +64,7 @@ function getAssetData(config) {
 }
 
 /*
- * Preview mode 
+ * Preview mode
  */
 
 if(previewMode) {
@@ -100,7 +99,7 @@ if(previewMode) {
   });
 
   app.use(express.static(path.join(__dirname, '..', 'public')));
-  
+
   app.listen(port, function () {
     if (process.stdout.isTTY) {
       console.log('Preview your docs @ http://localhost:' + port);
@@ -113,30 +112,38 @@ if(previewMode) {
 }
 
 /*
- * Output mode 
+ * Output mode
  */
 
 if(outputPath) {
   var publicAssets = path.join(__dirname, '..', 'public');
-  
-  sh.cp('-r', path.join(publicAssets, '*'), outputPath);
-  
+
+  fs.copySync(publicAssets, outputPath);
+
   Docs.readConfig(configPaths, function(err, config) {
     var assets = getAssetData(config);
 
     if(assets) {
       Object.keys(assets).forEach(function (key) {
-        sh.mkdir('-p', path.join(outputPath, key));
-        sh.cp('-r', path.join(assets[key], '*'), path.join(outputPath, key));
+        const source = assets[key];
+        if (!fs.existsSync(source)) {
+          console.warn(
+            'Ignoring unknown assets directory: %s -> %s',
+            key, source);
+          return;
+        }
+        const target = path.join(outputPath, key);
+        fs.mkdirsSync(target);
+        fs.copySync(path.join(assets[key]), target);
       });
     }
 
     Docs.toHtml(config, function (err, html) {
       if(err) {
         console.error(err);
-        process.exit();
+        process.exit(1);
       } else {
-        html.to(path.join(outputPath, 'index.html'));
+        fs.writeFileSync(path.join(outputPath, 'index.html'), html);
       }
     });
   });
