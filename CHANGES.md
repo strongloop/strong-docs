@@ -1,3 +1,13 @@
+2017-10-16, Version 1.6.0
+=========================
+
+ * Upgrade to typedoc@0.9.0 to support TS 2.4.x (Raymond Feng)
+
+ * Create Issue and PR Templates (#96) (Sakib Hasan)
+
+ * Add CODEOWNERS file (Diana Lau)
+
+
 2017-07-18, Version 1.5.1
 =========================
 
