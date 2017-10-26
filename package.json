@@ -10,7 +10,9 @@
     "url": "git://github.com/strongloop/strong-docs.git"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "debug": "^2.6.8",
@@ -25,7 +27,8 @@
     "optimist": "~0.6.0",
     "strong-task-emitter": "~0.0.5",
     "typedoc": "^0.9.0",
-    "underscore.string": "^3.3.4"
+    "underscore.string": "^3.3.4",
+    "snyk": "^1.46.0"
   },
   "devDependencies": {
     "chai": "^4.1.0",
@@ -34,5 +37,6 @@
   "bin": {
     "sdocs": "./bin/cli.js"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
