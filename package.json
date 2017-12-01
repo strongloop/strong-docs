@@ -21,7 +21,7 @@
     "glob": "^7.1.2",
     "highlight.js": "~7.3.0",
     "markdown": "~0.5.0",
-    "marked": "~0.2.9",
+    "marked": "~0.3.7",
     "optimist": "~0.6.0",
     "strong-task-emitter": "~0.0.5",
     "typedoc": "^0.9.0",
