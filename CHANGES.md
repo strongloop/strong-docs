@@ -1,3 +1,11 @@
+2017-12-12, Version 1.6.1
+=========================
+
+ * chore: update dependency - marked (#102) (Taranveer Virk)
+
+ * Update LICENSE (Diana Lau)
+
+
 2017-10-16, Version 1.6.0
 =========================
 
