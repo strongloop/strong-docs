@@ -10,6 +10,8 @@ var configPaths = {};
 var configPath = argv.config || argv.c || 'docs.json';
 var config;
 var outputPath = argv.out || argv.o;
+var tsConfig = argv.tsconfig;
+var tsTarget = argv.tstarget;
 var previewMode = argv.preview || argv.p;
 var packagePath = argv.package || 'package.json';
 var package;
@@ -76,6 +78,12 @@ if(previewMode) {
 
     Docs.readConfig(configPaths, function(err, config) {
       if (err) return next(err);
+      if (tsConfig) {
+        config.tsconfig = tsConfig;
+      }
+      if (tsTarget) {
+        config.tstarget = tsTarget;
+      }
       var assets = getAssetData(config);
 
       if(assets) {
@@ -121,6 +129,16 @@ if(outputPath) {
   fs.copySync(publicAssets, outputPath);
 
   Docs.readConfig(configPaths, function(err, config) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    if (tsConfig) {
+      config.tsconfig = tsConfig;
+    }
+    if (tsTarget) {
+      config.tstarget = tsTarget;
+    }
     var assets = getAssetData(config);
 
     if(assets) {
