@@ -1,3 +1,9 @@
+2018-01-30, Version 1.7.1
+=========================
+
+ * fix: make sure options from cli/docs.json are passed to typedoc (Raymond Feng)
+
+
 2018-01-30, Version 1.7.0
 =========================
 
