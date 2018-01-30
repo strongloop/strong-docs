@@ -78,12 +78,7 @@ if(previewMode) {
 
     Docs.readConfig(configPaths, function(err, config) {
       if (err) return next(err);
-      if (tsConfig) {
-        config.tsconfig = tsConfig;
-      }
-      if (tsTarget) {
-        config.tstarget = tsTarget;
-      }
+      config = configureTypeDoc(config);
       var assets = getAssetData(config);
 
       if(assets) {
@@ -133,12 +128,7 @@ if(outputPath) {
       console.error(err);
       process.exit(1);
     }
-    if (tsConfig) {
-      config.tsconfig = tsConfig;
-    }
-    if (tsTarget) {
-      config.tstarget = tsTarget;
-    }
+    config = configureTypeDoc(config);
     var assets = getAssetData(config);
 
     if(assets) {
@@ -166,3 +156,21 @@ if(outputPath) {
     });
   });
 }
+
+/**
+ * Configure options for TypeDoc
+ * @param {*} config 
+ */
+function configureTypeDoc(config) {
+  config = config || {};
+  config.typedoc = config.typedoc || {};
+  var typeDocOptions = config.typedoc;
+  if (tsConfig) {
+    typeDocOptions.tsconfig = tsConfig;
+  }
+  if (tsTarget) {
+    typeDocOptions.target = tsTarget;
+  }
+  return config;
+}
+
