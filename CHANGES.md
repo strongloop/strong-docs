@@ -1,3 +1,9 @@
+2018-01-30, Version 1.7.0
+=========================
+
+ * feat: allow tsconfig/tstarget for typedoc (Raymond Feng)
+
+
 2017-12-12, Version 1.6.1
 =========================
 
