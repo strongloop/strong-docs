@@ -8,4 +8,6 @@ Arguments:
   --out, -o       Output path for generated docs directory
   --preview, -p   Start a preview server
   --port          Specify the preview server port
+  --tsconfig      Specify the tsconfig option for typescript
+  --tstarget      Specify the target for typescript
   --help, -h      Print this help text
