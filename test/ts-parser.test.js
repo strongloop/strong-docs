@@ -13,8 +13,9 @@ describe('TypeScript Parser Test', function() {
     var tsFiles = [file];
     var tsParser = new TSParser(tsFiles, tsOptions);
     var parsedData = tsParser.parse();
-    assert.equal(parsedData.sections.length, 3);
-    assert.equal(parsedData.constructs.length, 1);
+    expect(parsedData.sections).to.have.length(3);
+    expect(parsedData.constructs).to.have.length(1);
+    expect(parsedData.errors).to.have.length(0);
   });
 
   it('should report errors based on tsconfig', function() {
@@ -23,10 +24,21 @@ describe('TypeScript Parser Test', function() {
     var tsFiles = [file];
     var tsParser = new TSParser(tsFiles, tsOptions);
     var parsedData = tsParser.parse();
-    expect(parsedData.errors).have.property('length', 1);
+    expect(parsedData.errors).to.have.length(1);
     expect(parsedData.errors[0].messageText).to.eql(
       'Property \'includes\' does not exist on type \'string[]\'.'
     );
+  });
+
+  it('should parse Array.includes with es2016', function() {
+    this.timeout(90000);
+    var file = path.join(__dirname, 'fixtures/ts/Greeter.es2016.ts');
+    var tsFiles = [file];
+    var tsParser = new TSParser(tsFiles, {target: 'es2016'});
+    var parsedData = tsParser.parse();
+    expect(parsedData.sections).to.have.length(3);
+    expect(parsedData.constructs).to.have.length(1);
+    expect(parsedData.errors).to.have.length(0);
   });
 
 });
