@@ -1,3 +1,15 @@
+2018-02-02, Version 1.8.0
+=========================
+
+ * fix: allow tsconfig to override the default target (Raymond Feng)
+
+ * fix: set excludeNotExported to false to work around typedoc issue (Raymond Feng)
+
+ * perf: fix options to speed up the parsing from 1.5 mins to a few secs (Raymond Feng)
+
+ * chore: upgrade to typedoc 0.10.0 (Raymond Feng)
+
+
 2018-01-30, Version 1.7.1
 =========================
 
