@@ -5,10 +5,12 @@ var expect = require('chai').expect;
 var TSParser = require('../lib/tsParser');
 
 describe('TypeScript Parser Test', function() {
-  var tsOptions = {tsconfig: path.join(__dirname, 'tsconfig.json')};
+  var tsOptions = {
+    excludeNotExported: false,
+    tsconfig: path.join(__dirname, 'tsconfig.json'),
+  };
 
   it('should parse this TS file', function() {
-    this.timeout(90000); // typedoc can be time consuming
     var file = path.join(__dirname, 'fixtures/ts/Greeter.ts');
     var tsFiles = [file];
     var tsParser = new TSParser(tsFiles, tsOptions);
@@ -19,7 +21,6 @@ describe('TypeScript Parser Test', function() {
   });
 
   it('should report errors based on tsconfig', function() {
-    this.timeout(90000);
     var file = path.join(__dirname, 'fixtures/ts/Greeter.es2016.ts');
     var tsFiles = [file];
     var tsParser = new TSParser(tsFiles, tsOptions);
@@ -31,10 +32,12 @@ describe('TypeScript Parser Test', function() {
   });
 
   it('should parse Array.includes with es2016', function() {
-    this.timeout(90000);
     var file = path.join(__dirname, 'fixtures/ts/Greeter.es2016.ts');
     var tsFiles = [file];
-    var tsParser = new TSParser(tsFiles, {target: 'es2016'});
+    var tsParser = new TSParser(tsFiles, {
+      target: 'es2016',
+      excludeNotExported: false,
+    });
     var parsedData = tsParser.parse();
     expect(parsedData.sections).to.have.length(3);
     expect(parsedData.constructs).to.have.length(1);

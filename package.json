@@ -10,7 +10,7 @@
     "url": "git://github.com/strongloop/strong-docs.git"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --timeout 15000"
   },
   "dependencies": {
     "debug": "^3.1.0",
