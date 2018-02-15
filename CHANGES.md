@@ -1,3 +1,9 @@
+2018-02-15, Version 1.8.1
+=========================
+
+ * fix: make sure absolute paths are passed to typedoc (Raymond Feng)
+
+
 2018-02-02, Version 1.8.0
 =========================
 
