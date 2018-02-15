@@ -7,7 +7,8 @@ var SAMPLE = [
   'fixtures/a.md',
   'fixtures/b/b.md',
   'fixtures/b/*.js',
-  'fixtures/b/c/c.md'
+  'fixtures/b/c/c.md',
+  'fixtures/ts/Greeter.ts'
 ];
 var Docs = require('../');
 
@@ -18,7 +19,7 @@ describe('Docs', function() {
       content: SAMPLE,
       root: __dirname
     }, function (err, docs) {
-      assert.equal(docs.content.length, 4);
+      assert.equal(docs.content.length, 5);
       done();
     });
   });
@@ -28,7 +29,7 @@ describe('Docs', function() {
       content: SAMPLE,
       root: __dirname
     }, function (err, docs) {
-      assert.equal(docs.sections.length, 8);
+      assert.equal(docs.sections.length, 11);
       done();
     });
   });
@@ -42,7 +43,7 @@ describe('Docs', function() {
     });
   });
 
-  it('should inclide documentation from external file', function(done) {
+  it('should include documentation from external file', function(done) {
     Docs.toHtml({
       content: ['fixtures/js/main-class.js', 'fixtures/js/class-method.js'],
       root: __dirname
