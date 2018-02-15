@@ -17,3 +17,5 @@ function greeterFun(age: number){
 }
 
 let greeter = new Greeter("world");
+
+export type PathParameterValues = {[key: string]: any};

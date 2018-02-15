@@ -3,7 +3,7 @@
 <%
     if(type && type.declaration && (type.declaration.signatures || type.declaration.indexSignature)){
     var signature = (type.declaration.signatures && type.declaration.signatures[0]) ||
-                  (type.declaration.indexSignature && type.declaration.indexSignature[0]);              
+                  (type.declaration.indexSignature);
     if (signature.type.type === 'reference' && signature.type.name !== 'Promise') {
 %>
         <h4 class="code-ref"><%-name%>(<%-tsHelpers.commaSepParams(signature.parameters)%>): <a href="#<%-signature.type.name%>"><%-signature.type.name%></a></h4>
