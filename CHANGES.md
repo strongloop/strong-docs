@@ -1,3 +1,9 @@
+2018-02-16, Version 1.8.2
+=========================
+
+ * fix: fix typedoc for type alias (Raymond Feng)
+
+
 2018-02-15, Version 1.8.1
 =========================
 
