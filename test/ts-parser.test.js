@@ -16,8 +16,8 @@ describe('TypeScript Parser Test', function() {
       tsconfig,
     });
     var parsedData = tsParser.parse();
-    expect(parsedData.sections).to.have.length(3);
-    expect(parsedData.constructs).to.have.length(1);
+    expect(parsedData.sections).to.have.length(4);
+    expect(parsedData.constructs).to.have.length(2);
     expect(parsedData.errors).to.have.length(0);
   });
 
