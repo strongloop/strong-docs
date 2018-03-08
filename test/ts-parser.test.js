@@ -16,8 +16,12 @@ describe('TypeScript Parser Test', function() {
       tsconfig,
     });
     var parsedData = tsParser.parse();
-    expect(parsedData.sections).to.have.length(4);
-    expect(parsedData.constructs).to.have.length(2);
+    expect(parsedData.sections).to.have.length(7);
+    expect(parsedData.constructs).to.have.length(5);
+    expect(parsedData.constructs.map(function(c) {
+      return c.node.name;
+    })).to.eql(['param.Message', 'param.path.boolean', 'param.path.number',
+      'Greeter', 'PathParameterValues']);
     expect(parsedData.errors).to.have.length(0);
   });
 
