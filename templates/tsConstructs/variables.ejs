@@ -1,14 +1,14 @@
 <section class="code-doc">
-    <div class="code-arguments-hdr">Properties</div>
+    <div class="code-arguments-hdr">Variables</div>
     <table class="params code-arguments">
         <tr>
             <th class="hdr-name">Name</th>
             <th class="hdr-type">Type</th>
             <th class="hdr-desc">Description</th>
         </tr>
-        <%  var properties = properties || null;
-            if(properties && properties.length > 0){
-                properties.forEach(function(param){
+        <%  var variables = variables || null;
+            if(variables && variables.length > 0){
+                variables.forEach(function(param){
         %>
             <tr class="code-arg">
                 <td>
@@ -22,7 +22,7 @@
                     <%- include('comments', param); %>
                 </td>
             </tr>
-        <%            
+        <%
                 });
             }
         %>
