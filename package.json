@@ -21,15 +21,15 @@
     "glob": "^7.1.2",
     "highlight.js": "^9.12.0",
     "markdown": "~0.5.0",
-    "marked": "^0.3.7",
+    "marked": "^0.3.17",
     "optimist": "~0.6.0",
     "strong-task-emitter": "~0.0.5",
-    "typedoc": "^0.10.0",
+    "typedoc": "^0.11.0",
     "underscore.string": "^3.3.4"
   },
   "devDependencies": {
     "chai": "^4.1.0",
-    "mocha": "^5.0.0"
+    "mocha": "^5.0.4"
   },
   "bin": {
     "sdocs": "./bin/cli.js"
