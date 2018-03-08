@@ -1,4 +1,10 @@
-2018-03-08, Version 1.9.0
+2018-03-08, Version 1.9.1
+=========================
+
+ * fix: fix parsing and rendering of object literals (Raymond Feng)
+
+
+2018-03-07, Version 1.9.0
 =========================
 
  * chore: upgrade deps (Raymond Feng)
