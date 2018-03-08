@@ -29,7 +29,7 @@ describe('Docs', function() {
       content: SAMPLE,
       root: __dirname
     }, function (err, docs) {
-      assert.equal(docs.sections.length, 15);
+      assert.equal(docs.sections.length, 14);
       done();
     });
   });
