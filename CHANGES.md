@@ -1,4 +1,12 @@
-2018-02-16, Version 1.8.2
+2018-03-08, Version 1.9.0
+=========================
+
+ * chore: upgrade deps (Raymond Feng)
+
+ * fix: handle typescript namespaces (Raymond Feng)
+
+
+2018-02-15, Version 1.8.2
 =========================
 
  * fix: fix typedoc for type alias (Raymond Feng)
