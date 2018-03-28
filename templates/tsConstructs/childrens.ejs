@@ -1,32 +1,33 @@
-<%   
+<%
     var properties = [];
     var variables = [];
-    if(locals.children && locals.children.length > 0){
-        children.forEach(function(child){
-            if(child.kindString === 'Property' && child.shouldDocument){
+    if (locals.children && locals.children.length > 0) {
+        children.forEach(function(child) {
+            if (child.kindString === 'Property' && child.shouldDocument) {
                 properties.push(child);
             }
-            if(child.kindString === 'Variable' && child.shouldDocument){
+            if (child.kindString === 'Variable' && child.shouldDocument) {
                 variables.push(child);
             }
-        })
-        if(properties && properties.length > 0){
+        });
+        if (properties && properties.length > 0) {
 %>
-            <%- include('properties', {'properties': properties}); %>
+    <%- include('properties', {'properties': properties}); %>
 <%
         }
-        if(variables && variables.length > 0){
+        if (variables && variables.length > 0) {
 %>
             <%- include('variables', {'variables': variables}); %>
-<% 
+<%
         }
-        children.forEach(function(child){
-            if(child.kindString === 'Constructor' && child.shouldDocument){%>
-                 <%- include('constructor', child); %>
-            <%}
-            if(child.kindString === 'Method' && child.shouldDocument){%>
-                <%- include('function', child); %>
-            <%}
-        })
+        children.forEach(function(child) {
+            if (child.shouldDocument &&
+              (child.kindString === 'Constructor' ||
+               child.kindString === 'Method')) {
+%>
+                <%- include('method', child); %>
+<%
+            }
+        });
     }
 %>

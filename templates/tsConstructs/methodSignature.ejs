@@ -1,21 +1,16 @@
 <section class="code-doc ">
     <a name="<%-anchorId%>"></a>
 <%
-if(signatures && signatures[0]){
-    var type = signatures[0].type;
+var type = signature.type;
 %>
-    <h4 class="code-ref"><%-name%>(<%-tsHelpers.commaSepParams(signatures[0].parameters)%>) : <%-tsHelpers.returnTypeStr(type)%></h4>
+<h4 class="code-ref"><%-name%>(<%-tsHelpers.commaSepParams(signature.parameters)%>) : <%-tsHelpers.returnTypeStr(type)%></h4>
 <%
-}
+var methodComment = signature.comment || null;
 %>
+    <%- include('comments', {'comment': methodComment}); %>
 <%
-var comment = comment || (signatures && signatures[0] && signatures[0].comment) || null;
-%>  
-    <%- include('comments', {'comment': comment}); %>
-<%
-    if(signatures){ 
-    const parameters = signatures[0].parameters;
-    if(parameters && parameters.length > 0){
+    var parameters = signature.parameters;
+    if (parameters && parameters.length > 0) {
 %>
     <div class="code-arguments-hdr">Arguments</div>
     <table class="params code-arguments">
@@ -24,9 +19,9 @@ var comment = comment || (signatures && signatures[0] && signatures[0].comment) 
             <th class="hdr-type">Type</th>
             <th class="hdr-desc">Description</th>
         </tr>
-<%        
-        parameters.forEach(function(param){
-%>        
+<%
+        parameters.forEach(function(param) {
+%>
             <tr class="code-arg">
                 <td>
                     <strong class="code-arg-name"><%-param.name%></strong>
@@ -38,12 +33,11 @@ var comment = comment || (signatures && signatures[0] && signatures[0].comment) 
                     <%- include('comments', param); %>
                 </td>
             </tr>
-<%            
+<%
         });
-%>           
+%>
     </table>
-<%        
+<%
     }
-    } 
 %>
 </section>
