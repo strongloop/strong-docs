@@ -1,3 +1,9 @@
+2018-03-29, Version 1.10.1
+==========================
+
+ * fix: skip copy if source is the same as target (Raymond Feng)
+
+
 2018-03-29, Version 1.10.0
 ==========================
 
