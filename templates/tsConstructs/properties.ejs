@@ -7,8 +7,8 @@
             <th class="hdr-desc">Description</th>
         </tr>
         <%  var properties = properties || null;
-            if(properties && properties.length > 0){
-                properties.forEach(function(param){
+            if (properties && properties.length > 0) {
+                properties.forEach(function(param) {
         %>
             <tr class="code-arg">
                 <td>
@@ -22,7 +22,7 @@
                     <%- include('comments', param); %>
                 </td>
             </tr>
-        <%            
+        <%
                 });
             }
         %>

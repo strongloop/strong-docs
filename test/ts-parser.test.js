@@ -23,6 +23,12 @@ describe('TypeScript Parser Test', function() {
     })).to.eql(['param.Message', 'param.path',
       'Greeter', 'PathParameterValues']);
     expect(parsedData.errors).to.have.length(0);
+    var greeterClass = parsedData.constructs.filter(function(c) {
+      return c.node.name === 'Greeter';
+    })[0].node;
+    expect(greeterClass.children).have.length(4);
+    // Two overloaded signatures
+    expect(greeterClass.children[3].signatures).have.length(2);
   });
 
   it.skip('should exclude constructs that are not exported' +
