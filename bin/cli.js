@@ -10,11 +10,18 @@ var configPaths = {};
 var configPath = argv.config || argv.c || 'docs.json';
 var config;
 var outputPath = argv.out || argv.o;
+
+// --html-file
+// The file name for generated html
+var htmlFile = argv['html-file'] || 'index.html';
 var tsConfig = argv.tsconfig;
 var tsTarget = argv.tstarget;
 var previewMode = argv.preview || argv.p;
 var packagePath = argv.package || 'package.json';
 var package;
+// --skip-public-assets
+// Do not copy `public` assets as it can be shared
+var skipPublicAssets = argv['skip-public-assets'] || false;
 var showHelp = argv.help
              || argv.h
              || !(outputPath || previewMode)
@@ -119,9 +126,10 @@ if(previewMode) {
  */
 
 if(outputPath) {
-  var publicAssets = path.join(__dirname, '..', 'public');
-
-  fs.copySync(publicAssets, outputPath);
+  if (!skipPublicAssets) {
+    var publicAssets = path.join(__dirname, '..', 'public');
+    fs.copySync(publicAssets, outputPath);
+  }
 
   Docs.readConfig(configPaths, function(err, config) {
     if (err) {
@@ -141,8 +149,12 @@ if(outputPath) {
           return;
         }
         const target = path.join(outputPath, key);
-        fs.mkdirsSync(target);
-        fs.copySync(path.join(assets[key]), target);
+        if (fs.statSync(source).isFile()) {
+          fs.copySync(source, target);
+        } else {
+          fs.ensureDirSync(target);
+          fs.copySync(assets[key], target);
+        }
       });
     }
 
@@ -151,7 +163,7 @@ if(outputPath) {
         console.error(err);
         process.exit(1);
       } else {
-        fs.writeFileSync(path.join(outputPath, 'index.html'), html);
+        fs.writeFileSync(path.join(outputPath, htmlFile), html);
       }
     });
   });
