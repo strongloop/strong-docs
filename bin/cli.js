@@ -149,11 +149,13 @@ if(outputPath) {
           return;
         }
         const target = path.join(outputPath, key);
-        if (fs.statSync(source).isFile()) {
-          fs.copySync(source, target);
-        } else {
-          fs.ensureDirSync(target);
-          fs.copySync(assets[key], target);
+        if (target !== source) {
+          if (fs.statSync(source).isFile()) {
+            fs.copySync(source, target);
+          } else {
+            fs.ensureDirSync(target);
+            fs.copySync(source, target);
+          }
         }
       });
     }
