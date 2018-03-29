@@ -1,4 +1,14 @@
-2018-03-08, Version 1.9.1
+2018-03-29, Version 1.10.0
+==========================
+
+ * feat: add more options for the cli (Raymond Feng)
+
+ * fix: update templates for methods and type aliases (Raymond Feng)
+
+ * chore: upgrade dependencies (Raymond Feng)
+
+
+2018-03-07, Version 1.9.1
 =========================
 
  * fix: fix parsing and rendering of object literals (Raymond Feng)
