@@ -1,3 +1,9 @@
+2018-03-30, Version 1.10.2
+==========================
+
+ * add more check and debug information (Raymond Feng)
+
+
 2018-03-29, Version 1.10.1
 ==========================
 
