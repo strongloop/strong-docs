@@ -4,9 +4,10 @@
         <tr>
             <th class="hdr-name">Name</th>
             <th class="hdr-type">Type</th>
+            <th class="hdr-flags">Flags</th>
             <th class="hdr-desc">Description</th>
         </tr>
-        <%  var variables = variables || null;
+        <%
             if (variables && variables.length > 0) {
                 variables.forEach(function(param) {
         %>
@@ -17,6 +18,9 @@
                 </td>
                 <td class="code-arg-types">
                     <%- include('type', param); %>
+                </td>
+                <td class="code-arg-flags">
+                    <%- tsHelpers.getFlags(param.flags) %>
                 </td>
                 <td class="code-arg-desc">
                     <%- include('comments', param); %>
