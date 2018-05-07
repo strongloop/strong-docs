@@ -1,0 +1,21 @@
+<%
+    var templates = {
+        'Class': 'class',
+        'Interface': 'interface',
+        'Function': 'function',
+        'Variable': 'variable',
+        'Object literal': 'objectLiteral',
+        'Module': 'namespace',
+        'Type alias': 'typeAlias'
+    };
+    if (locals.children && locals.children.length > 0) {
+        children.filter(function(c) {
+            return c.shouldDocument;
+        }).forEach(function(child) {
+            child.name = name + '.' + child.name;
+%>
+        <%- include(templates[child.kindString], child); %>
+<%
+        });
+    }
+%>

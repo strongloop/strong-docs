@@ -20,8 +20,7 @@ describe('TypeScript Parser Test', function() {
     expect(parsedData.constructs).to.have.length(4);
     expect(parsedData.constructs.map(function(c) {
       return c.node.name;
-    })).to.eql(['param.Message', 'param.path',
-      'Greeter', 'PathParameterValues']);
+    })).to.eql(['param', 'Greeter', 'PathParameterValues', 'greeter']);
     expect(parsedData.errors).to.have.length(0);
     var greeterClass = parsedData.constructs.filter(function(c) {
       return c.node.name === 'Greeter';
@@ -67,8 +66,8 @@ describe('TypeScript Parser Test', function() {
       excludeNotExported: false,
     });
     var parsedData = tsParser.parse();
-    expect(parsedData.sections).to.have.length(3);
-    expect(parsedData.constructs).to.have.length(1);
+    expect(parsedData.sections).to.have.length(4);
+    expect(parsedData.constructs).to.have.length(2);
     expect(parsedData.errors).to.have.length(0);
   });
 
@@ -80,8 +79,8 @@ describe('TypeScript Parser Test', function() {
       excludeNotExported: false,
     });
     var parsedData = tsParser.parse();
-    expect(parsedData.sections).to.have.length(3);
-    expect(parsedData.constructs).to.have.length(1);
+    expect(parsedData.sections).to.have.length(4);
+    expect(parsedData.constructs).to.have.length(2);
     expect(parsedData.errors).to.have.length(0);
   });
 
