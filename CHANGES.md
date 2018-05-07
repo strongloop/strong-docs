@@ -1,3 +1,9 @@
+2018-05-07, Version 1.11.0
+==========================
+
+ * Allow TS variables to be documented (Raymond Feng)
+
+
 2018-03-30, Version 1.10.2
 ==========================
 
