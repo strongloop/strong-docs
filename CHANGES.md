@@ -1,3 +1,9 @@
+2018-05-07, Version 1.12.0
+==========================
+
+ * Tidy up support typescript types (Raymond Feng)
+
+
 2018-05-07, Version 1.11.0
 ==========================
 
