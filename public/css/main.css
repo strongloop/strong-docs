@@ -76,6 +76,9 @@ code {
 .code-arg-flags {
   font-weight: normal;
 }
+.code-arg-default-value {
+  font-weight: normal;
+}
 .code-arg-desc {
   margin-top: 10px;
 }
@@ -99,6 +102,9 @@ code {
   width: 15%;
 }
 .params .hdr-type {
+  width: 15%;
+}
+.params .hdr-default-value {
   width: 15%;
 }
 .params .hdr-flags {

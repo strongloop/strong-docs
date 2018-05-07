@@ -10,7 +10,7 @@
     };
     if (locals.children && locals.children.length > 0) {
         children.filter(function(c) {
-            return c.shouldDocument;
+            return tsHelpers.shouldDocument(c);
         }).forEach(function(child) {
             child.name = name + '.' + child.name;
 %>

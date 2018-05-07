@@ -3,10 +3,10 @@
     var variables = [];
     if (locals.children && locals.children.length > 0) {
         children.forEach(function(child) {
-            if (child.kindString === 'Property' && child.shouldDocument) {
+            if (child.kindString === 'Property' && tsHelpers.shouldDocument(child)) {
                 properties.push(child);
             }
-            if (child.kindString === 'Variable' && child.shouldDocument) {
+            if (child.kindString === 'Variable' && tsHelpers.shouldDocument(child)) {
                 variables.push(child);
             }
         });
@@ -21,9 +21,15 @@
 <%
         }
         children.forEach(function(child) {
-            if (child.shouldDocument &&
+            if (tsHelpers.shouldDocument(child) &&
               (child.kindString === 'Constructor' ||
                child.kindString === 'Method')) {
+%>
+                <%- include('method', child); %>
+<%
+            }
+            if (child.kindString === 'Accessor') {
+                child.signatures = [child.getSignature || child.setSignature];
 %>
                 <%- include('method', child); %>
 <%
