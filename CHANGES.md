@@ -1,3 +1,9 @@
+2018-05-07, Version 1.12.1
+==========================
+
+ * Make sure enum under namespace is allowed (Raymond Feng)
+
+
 2018-05-07, Version 1.12.0
 ==========================
 
