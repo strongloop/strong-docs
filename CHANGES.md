@@ -1,3 +1,11 @@
+2018-05-10, Version 2.0.0
+=========================
+
+ * Upgrade fs-extra to latest (Miroslav Bajtoš)
+
+ * [SEMVER-MAJOR] drop support for Node.js 4.x (Miroslav Bajtoš)
+
+
 2018-05-07, Version 1.12.1
 ==========================
 
