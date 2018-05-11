@@ -7,7 +7,7 @@
  * @callback callback called when the function did something
  * @param {Error} err whether it worked
  * @end //optional, since there is nothing after
-*/
+ */
 
 function myFunc(options, callback) {
   // body...

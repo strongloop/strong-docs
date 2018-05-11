@@ -9,18 +9,18 @@ export class Greeter {
   }
   greet(name: string) {
     if (this.isValid(name)) {
-      return "Hello, " + name;
+      return 'Hello, ' + name;
     } else {
-      return "Sorry, " + name;
+      return 'Sorry, ' + name;
     }
   }
 
   private isValid(name: string) {
-      // `includes` is only available since ES2016
+    // `includes` is only available since ES2016
     return this.names.includes(name);
   }
 }
 
-let greeter = new Greeter(["John", "Mary"]);
-greeter.greet("John");
-greeter.greet("Smith");
+let greeter = new Greeter(['John', 'Mary']);
+greeter.greet('John');
+greeter.greet('Smith');
