@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var Docs = require('../lib/docs');
+var Docs = require('../lib/docs').Docs;
 var argv = require('optimist').argv;
 var path = require('path');
 var fs = require('fs-extra');
