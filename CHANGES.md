@@ -1,3 +1,9 @@
+2018-05-16, Version 3.0.0
+=========================
+
+ * refactor: rewrite the project using TypeScript (Raymond Feng)
+
+
 2018-05-10, Version 2.0.0
 =========================
 
