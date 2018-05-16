@@ -5,6 +5,4 @@
  * @promise {Array} Resolves an Array.
  *
  */
-function promiseStandalone(arg) {
-
-}
+function promiseStandalone(arg) {}

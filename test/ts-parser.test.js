@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
 var expect = require('chai').expect;
-var TSParser = require('../lib/tsParser');
+var TSParser = require('../lib/ts-parser').TSParser;
 
 describe('TypeScript Parser Test', function() {
   var tsconfig = path.join(__dirname, 'tsconfig.json');
@@ -18,9 +18,11 @@ describe('TypeScript Parser Test', function() {
     var parsedData = tsParser.parse();
     expect(parsedData.sections).to.have.length(9);
     expect(parsedData.constructs).to.have.length(3);
-    expect(parsedData.constructs.map(function(c) {
-      return c.node.name;
-    })).to.eql(['param', 'Greeter', 'PathParameterValues']);
+    expect(
+      parsedData.constructs.map(function(c) {
+        return c.node.name;
+      })
+    ).to.eql(['param', 'Greeter', 'PathParameterValues']);
     expect(parsedData.errors).to.have.length(0);
     var greeterClass = parsedData.constructs.filter(function(c) {
       return c.node.name === 'Greeter';
@@ -30,19 +32,22 @@ describe('TypeScript Parser Test', function() {
     expect(greeterClass.children[3].signatures).have.length(2);
   });
 
-  it.skip('should exclude constructs that are not exported' +
-    ' (https://github.com/TypeStrong/typedoc/pull/694)', function() {
-    var file = path.join(__dirname, 'fixtures/ts/Greeter.ts');
-    var tsFiles = [file];
-    var tsParser = new TSParser(tsFiles, {
-      excludeNotExported: true,
-      tsconfig,
-    });
-    var parsedData = tsParser.parse();
-    expect(parsedData.sections).to.have.length(3);
-    expect(parsedData.constructs).to.have.length(1);
-    expect(parsedData.errors).to.have.length(0);
-  });
+  it.skip(
+    'should exclude constructs that are not exported' +
+      ' (https://github.com/TypeStrong/typedoc/pull/694)',
+    function() {
+      var file = path.join(__dirname, 'fixtures/ts/Greeter.ts');
+      var tsFiles = [file];
+      var tsParser = new TSParser(tsFiles, {
+        excludeNotExported: true,
+        tsconfig,
+      });
+      var parsedData = tsParser.parse();
+      expect(parsedData.sections).to.have.length(3);
+      expect(parsedData.constructs).to.have.length(1);
+      expect(parsedData.errors).to.have.length(0);
+    }
+  );
 
   it('should report errors if es2016 apis are used with es2015 tsconfig', function() {
     var file = path.join(__dirname, 'fixtures/ts/Greeter.es2016.ts');
@@ -54,7 +59,7 @@ describe('TypeScript Parser Test', function() {
     var parsedData = tsParser.parse();
     expect(parsedData.errors).to.have.length(1);
     expect(parsedData.errors[0].messageText).to.eql(
-      'Property \'includes\' does not exist on type \'string[]\'.'
+      "Property 'includes' does not exist on type 'string[]'."
     );
   });
 
@@ -83,5 +88,4 @@ describe('TypeScript Parser Test', function() {
     expect(parsedData.constructs).to.have.length(1);
     expect(parsedData.errors).to.have.length(0);
   });
-
 });

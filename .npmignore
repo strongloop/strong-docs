@@ -10,5 +10,5 @@
 node_modules/
 _site
 test/fixtures/generated.md
-lib
-
+test
+.travis.yml

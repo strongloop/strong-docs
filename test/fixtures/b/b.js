@@ -6,7 +6,7 @@
  */
 
 function sum(a, b) {
-    return a + b;
+  return a + b;
 }
 
 /**
@@ -18,8 +18,8 @@ function sum(a, b) {
  */
 
 function asum(a, b, retArr) {
-    if (retArr) {
-        return [a, b, a + b];
-    }
-    return a + b;
+  if (retArr) {
+    return [a, b, a + b];
+  }
+  return a + b;
 }

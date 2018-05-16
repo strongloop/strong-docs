@@ -1,5 +1,5 @@
 /**
  * docs ~ public api
  */
- 
-module.exports = require('./lib/docs');
+
+module.exports = require('./lib/docs').Docs;
