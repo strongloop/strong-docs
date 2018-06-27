@@ -29,13 +29,13 @@ export interface Node extends DeclarationReflection {
   filename?: string;
   tsHelpers?: TSHelper;
   comment_copy?: Comment;
-  anchorId?: string | number;
+  anchorId?: string;
   shouldDocument?: boolean;
 }
 
 export interface Section {
   title: string;
-  anchor?: string | number;
+  anchor?: string;
   depth: number;
   annotation?: Annotation;
 }

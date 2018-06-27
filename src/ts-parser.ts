@@ -132,7 +132,7 @@ export class TSParser {
                 // This is needed in UI, good to keep the eligibility logic at one place
                 child.shouldDocument = true;
                 processMarkdown(child);
-
+                child.parent = node;
                 createAnchor(child);
                 this.sections.push({
                   title: TSHelper.getNodeTitle(child),
@@ -155,7 +155,10 @@ export class TSParser {
   findExportedConstructs(construct: Node, filePaths: string[]): Node[] {
     let exportedConstructs: Node[] = [];
     function findConstructs(node: Node, files: string[], parent?: Reflection) {
-      // Global = 0, ExternalModule = 1, Module = 2
+      if (parent) {
+        node.parent = parent;
+      }
+      // Global = 0, ExternalModule = 1
       if (
         node.kind === ReflectionKind.Global ||
         node.kind === ReflectionKind.ExternalModule
@@ -163,7 +166,7 @@ export class TSParser {
         let children = node.children;
         if (children && children.length > 0) {
           children.forEach(function(child) {
-            findConstructs(child, files, parent);
+            findConstructs(child, files, node);
           });
         }
       } else {
@@ -183,7 +186,10 @@ export class TSParser {
               filePath.split('/').pop()
           )
         ) {
-          node.name = parent ? parent + '.' + node.name : node.name;
+          if (parent && parent.kind === ReflectionKind.Module) {
+            // Set the node name with its parent namespace
+            node.name = parent ? parent.name + '.' + node.name : node.name;
+          }
           exportedConstructs.push(node);
         }
       }
@@ -193,21 +199,29 @@ export class TSParser {
   }
 }
 
-function createAnchor(node: Node) {
-  //node.anchorId = node.kindString + node.name.replace('$', '') + node.id;
-  if (
-    node.kind === ReflectionKind.Class ||
-    node.kind === ReflectionKind.Interface ||
-    node.kind === ReflectionKind.TypeAlias ||
-    node.kind === ReflectionKind.ObjectLiteral ||
-    node.kind === ReflectionKind.Module ||
-    node.kind === ReflectionKind.Variable ||
-    node.kind === ReflectionKind.Enum
-  ) {
-    node.anchorId = node.name;
-  } else {
-    node.anchorId = node.id;
+function getQualifiedName(node: Node) {
+  const names: string[] = [];
+  let current: Reflection = node;
+  while (current) {
+    if (
+      current.kind === ReflectionKind.Global ||
+      current.kind === ReflectionKind.ExternalModule
+    ) {
+      // Skip global/external module nodes
+      break;
+    }
+    const index = current.name.lastIndexOf('.');
+    const name =
+      index === -1 ? current.name : current.name.substring(index + 1);
+    names.unshift(name);
+    current = current.parent;
   }
+  const qname = names.join('.');
+  return qname;
+}
+
+function createAnchor(node: Node) {
+  node.anchorId = getQualifiedName(node);
 }
 
 function processMarkdown(node: Node) {

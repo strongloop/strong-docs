@@ -28,6 +28,16 @@ describe('TypeScript Parser Test', function() {
       return c.node.name === 'Greeter';
     })[0].node;
     expect(greeterClass.children).have.length(4);
+    expect(
+      greeterClass.children.map(function(c) {
+        return c.anchorId;
+      })
+    ).to.eql([
+      'Greeter.constructor',
+      'Greeter.greeting',
+      'Greeter.greeting2',
+      'Greeter.greet',
+    ]);
     // Two overloaded signatures
     expect(greeterClass.children[3].signatures).have.length(2);
   });
