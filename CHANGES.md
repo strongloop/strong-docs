@@ -1,3 +1,9 @@
+2018-06-27, Version 3.1.0
+=========================
+
+ * fix: use qualified name as anchor id (Raymond Feng)
+
+
 2018-05-16, Version 3.0.1
 =========================
 
