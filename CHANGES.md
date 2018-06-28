@@ -1,3 +1,9 @@
+2018-06-28, Version 3.2.0
+=========================
+
+ * feat: check static/protototype methods/properties (Raymond Feng)
+
+
 2018-06-27, Version 3.1.0
 =========================
 
