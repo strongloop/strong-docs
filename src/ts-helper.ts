@@ -209,15 +209,21 @@ export class TSHelper {
     if (kind === ReflectionKind.EnumMember) type = '';
     if (kind === ReflectionKind.TypeAlias) type = 'Type';
     if (kind === ReflectionKind.ObjectLiteral) type = 'Object';
+    let prefix = '';
+    if (kind === ReflectionKind.Method || kind === ReflectionKind.Property) {
+      if (node.flags.isStatic) {
+        prefix = 'static ';
+      }
+    }
     if (
       kind === ReflectionKind.Method ||
       kind === ReflectionKind.Constructor ||
       kind === ReflectionKind.Function
     )
-      return node.name + '()';
+      return prefix + node.name + '()';
     if (kind === ReflectionKind.Accessor) return '>' + node.name;
     if (kind === ReflectionKind.Variable || kind === ReflectionKind.Property)
-      return node.name;
+      return prefix + node.name;
     if (!type) return node.name;
     return type + ': ' + node.name;
   }

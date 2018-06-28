@@ -241,7 +241,7 @@ export class Annotation {
       let shouldParse =
         typeof tag === 'object' && typeof tag.type === 'string' && tag.type;
       if (shouldParse) {
-        let fn = this.tagParsers[tag.type!] || notSupported;
+        let fn = (this.tagParsers[tag.type!] || notSupported).bind(this);
         fn(tag, comment.ctx);
       }
 
