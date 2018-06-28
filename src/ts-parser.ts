@@ -213,7 +213,20 @@ function getQualifiedName(node: Node) {
     const index = current.name.lastIndexOf('.');
     const name =
       index === -1 ? current.name : current.name.substring(index + 1);
-    names.unshift(name);
+
+    // Check static methods/properties
+    if (
+      current.kind === ReflectionKind.Method ||
+      current.kind === ReflectionKind.Property
+    ) {
+      if (current.flags.isStatic) {
+        names.unshift(name);
+      } else {
+        names.unshift(`prototype.${name}`);
+      }
+    } else {
+      names.unshift(name);
+    }
     current = current.parent;
   }
   const qname = names.join('.');

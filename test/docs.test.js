@@ -33,7 +33,7 @@ describe('Docs', function() {
         root: __dirname,
       },
       function(err, docs) {
-        assert.equal(docs.sections.length, 17);
+        assert.equal(docs.sections.length, 19);
         done();
       }
     );

@@ -1,5 +1,6 @@
 /** Class representing a greeter. */
 export class Greeter {
+  static defaultPrefix: string = '';
   greeting: string;
   greeting2: number;
   /**
@@ -9,18 +10,23 @@ export class Greeter {
     this.greeting = message;
   }
   greet(): string;
+  // tslint:disable-next-line:unified-signatures
   greet(prefix: string): string;
 
   greet(prefix?: string) {
-    prefix = prefix || '';
-    return `[${prefix}] Hello, ${this.greeting}`;
+    prefix = prefix || Greeter.defaultPrefix;
+    return Greeter.buildMessage(prefix, this.greeting);
+  }
+
+  static buildMessage(prefix: string, greeting: string) {
+    return `[${prefix}] Hello, ${greeting}`;
   }
 }
 
 function greeterFun(age: number) {}
 
 let greeter = new Greeter('world');
-
+// tslint:disable-next-line:no-any
 export type PathParameterValues = {[key: string]: any};
 
 export function param() {}

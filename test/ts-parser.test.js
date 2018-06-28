@@ -16,7 +16,7 @@ describe('TypeScript Parser Test', function() {
       tsconfig,
     });
     var parsedData = tsParser.parse();
-    expect(parsedData.sections).to.have.length(9);
+    expect(parsedData.sections).to.have.length(11);
     expect(parsedData.constructs).to.have.length(3);
     expect(
       parsedData.constructs.map(function(c) {
@@ -27,19 +27,21 @@ describe('TypeScript Parser Test', function() {
     var greeterClass = parsedData.constructs.filter(function(c) {
       return c.node.name === 'Greeter';
     })[0].node;
-    expect(greeterClass.children).have.length(4);
+    expect(greeterClass.children).have.length(6);
     expect(
       greeterClass.children.map(function(c) {
         return c.anchorId;
       })
     ).to.eql([
       'Greeter.constructor',
-      'Greeter.greeting',
-      'Greeter.greeting2',
-      'Greeter.greet',
+      'Greeter.prototype.greeting',
+      'Greeter.prototype.greeting2',
+      'Greeter.defaultPrefix',
+      'Greeter.prototype.greet',
+      'Greeter.buildMessage',
     ]);
     // Two overloaded signatures
-    expect(greeterClass.children[3].signatures).have.length(2);
+    expect(greeterClass.children[4].signatures).have.length(2);
   });
 
   it.skip(
