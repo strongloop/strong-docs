@@ -1,3 +1,9 @@
+2018-08-20, Version 4.0.0
+=========================
+
+ * upgrade deps and use typescript 3.0.x (Raymond Feng)
+
+
 2018-06-28, Version 3.2.0
 =========================
 
