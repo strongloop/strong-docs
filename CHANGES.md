@@ -1,3 +1,9 @@
+2018-09-08, Version 4.0.1
+=========================
+
+ * check if defaultValue is undefined for a variable (Raymond Feng)
+
+
 2018-08-20, Version 4.0.0
 =========================
 
