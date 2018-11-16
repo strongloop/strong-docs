@@ -251,8 +251,8 @@ export class Annotation {
     });
 
     let desc =
-      attrs.description /* ngdoc style */ ||
-      (comment.description && comment.description.full) /* jsdoc/dox style */;
+        attrs.description /* ngdoc style */ ||
+        (comment.description && comment.description.full) /* jsdoc/dox style */;
 
     if (attrs.ignore || attrs.private || comment.ignore) {
       this.ignore = true;
