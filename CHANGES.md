@@ -1,4 +1,10 @@
-2018-09-08, Version 4.0.1
+2018-11-19, Version 4.0.2
+=========================
+
+ * update scripts to include prepublish (Nora)
+
+
+2018-09-07, Version 4.0.1
 =========================
 
  * check if defaultValue is undefined for a variable (Raymond Feng)
