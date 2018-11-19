@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json --outdir lib",
-    "prepare": "npm run build",
+    "prepublish": "npm run build",
     "lint": "npm run prettier:check && npm run tslint",
     "lint:fix": "npm run prettier:fix && npm run tslint:fix",
     "prettier:cli": "prettier \"**/*.ts\" \"**/*.js\"",
