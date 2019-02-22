@@ -32,7 +32,7 @@
     "glob": "^7.1.2",
     "highlight.js": "^9.12.0",
     "markdown": "~0.5.0",
-    "marked": "^0.5.0",
+    "marked": "^0.6.1",
     "optimist": "^0.6.0",
     "strong-task-emitter": "^0.0.8",
     "typedoc": "^0.12.0",
