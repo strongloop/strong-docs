@@ -91,7 +91,7 @@ function getArrayType(type: ArrayType) {
 }
 
 export class TSHelper {
-  static getTypeStr(type: Type) {
+  static getTypeStr(type: Type | undefined) {
     let typeStr = '';
     if (type == null) return typeStr;
     let typeArguments = getTypeArguments(type as ReferenceType);
@@ -110,6 +110,7 @@ export class TSHelper {
     params = params || undefined;
     if (params && params.length > 0) {
       params.forEach(function(param) {
+        if (!param.type) return;
         let arg = '';
         if (param.type.type === 'reflection') {
           arg = TSHelper.getSignatureForFunction(param);
@@ -124,7 +125,8 @@ export class TSHelper {
 
   static getSignatureForFunction(param: ParameterReflection) {
     const paramType = param.type as ReflectionType;
-    let signatures: SignatureReflection[] = paramType.declaration.signatures;
+    let signatures: SignatureReflection[] | undefined =
+      paramType.declaration.signatures;
     if (signatures && signatures[0]) {
       return (
         param.name +

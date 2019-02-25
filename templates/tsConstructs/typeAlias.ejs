@@ -27,7 +27,11 @@
       signatures = signatures.concat(declaration.signatures);
     }
     if (declaration.indexSignature) {
-      signatures.push(declaration.indexSignature);
+      if (Array.isArray(declaration.indexSignature)) {
+        signatures = signatures.concat(declaration.indexSignature);
+      } else {
+        signatures.push(declaration.indexSignature);
+      }
     }
     signatures.forEach(function(signature) {
 %>

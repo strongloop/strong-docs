@@ -87,17 +87,13 @@ export class TSConstruct {
    * Render the annotation as html.
    */
   render() {
-    this.node.filename = this.templates[
-      this.node.kindString.toLowerCase()
-    ].filename;
+    const kind = (this.node.kindString || '').toLowerCase();
+    this.node.filename = this.templates[kind].filename;
     this.node.tsHelpers = TSHelper;
     // HACK: for some reason "comment" is not getting passed in EJS include
     // May be it is a keyword and treated differently, should copy it in
-    // to another varaible comment_copy that gets passed on to included template.
+    // to another variable comment_copy that gets passed on to included template.
     this.node.comment_copy = this.node.comment;
-    return ejs.render(
-      this.templates[this.node.kindString.toLowerCase()].content,
-      this.node
-    );
+    return ejs.render(this.templates[kind].content, this.node);
   }
 }

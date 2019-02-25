@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json --outdir lib",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "lint": "npm run prettier:check && npm run tslint",
     "lint:fix": "npm run prettier:fix && npm run tslint:fix",
     "prettier:cli": "prettier \"**/*.ts\" \"**/*.js\"",
@@ -24,32 +24,32 @@
     "test": "mocha --require source-map-support/register --timeout 60000"
   },
   "dependencies": {
-    "debug": "^3.1.0",
+    "debug": "^4.1.1",
     "dox": "^0.9.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "fs-extra": "^7.0.0",
+    "fs-extra": "^7.0.1",
     "glob": "^7.1.2",
-    "highlight.js": "^9.12.0",
-    "markdown": "~0.5.0",
-    "marked": "^0.5.0",
+    "highlight.js": "~9.14.2",
+    "markdown": "^0.5.0",
+    "marked": "^0.6.1",
     "optimist": "^0.6.0",
     "strong-task-emitter": "^0.0.8",
-    "typedoc": "^0.12.0",
+    "typedoc": "^0.14.2",
     "underscore.string": "^3.3.4"
   },
   "devDependencies": {
-    "@types/debug": "0.0.30",
-    "@types/ejs": "^2.6.0",
-    "@types/marked": "^0.4.0",
+    "@types/debug": "^4.1.2",
+    "@types/ejs": "^2.6.3",
+    "@types/marked": "^0.6.1",
     "@types/node": "^10.7.1",
-    "@types/underscore.string": "0.0.32",
+    "@types/underscore.string": "^0.0.33",
     "chai": "^4.1.0",
-    "mocha": "^5.2.0",
-    "prettier": "^1.14.2",
-    "source-map-support": "^0.5.9",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.1"
+    "mocha": "^6.0.2",
+    "prettier": "^1.16.4",
+    "source-map-support": "^0.5.10",
+    "tslint": "^5.13.0",
+    "typescript": "^3.2.4"
   },
   "bin": {
     "sdocs": "./bin/cli.js"
