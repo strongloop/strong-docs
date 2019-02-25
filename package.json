@@ -1,7 +1,7 @@
 {
   "name": "strong-docs",
   "description": "Sleek, intuitive, and powerful documentation site generator",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "engines": {
     "node": ">=8"
   },
