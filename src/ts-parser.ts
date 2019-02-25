@@ -182,8 +182,9 @@ export class TSParser {
           node.flags.isExported &&
           files.find(
             filePath =>
+              node.sources != null &&
               node.sources[0].fileName.split('/').pop() ===
-              filePath.split('/').pop()
+                filePath.split('/').pop()
           )
         ) {
           if (parent && parent.kind === ReflectionKind.Module) {
@@ -201,7 +202,7 @@ export class TSParser {
 
 function getQualifiedName(node: Node) {
   const names: string[] = [];
-  let current: Reflection = node;
+  let current: Reflection | undefined = node;
   while (current) {
     if (
       current.kind === ReflectionKind.Global ||
@@ -261,7 +262,7 @@ function processMarkdown(node: Node) {
         }
       });
     }
-    let children: Reflection[] =
+    let children: Reflection[] | undefined =
       tsNode.children || (tsNode.signatures && tsNode.signatures[0].parameters);
     if (children && children.length > 0) {
       children.forEach((child: DeclarationReflection) => {
