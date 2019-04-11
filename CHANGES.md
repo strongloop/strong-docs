@@ -1,3 +1,11 @@
+2019-04-11, Version 4.2.0
+=========================
+
+ * fix: make sure target dir exists or be created to avoid racing condition (Raymond Feng)
+
+ * chore: upgrade dependencies (Raymond Feng)
+
+
 2019-02-25, Version 4.1.0
 =========================
 
