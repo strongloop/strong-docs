@@ -142,14 +142,13 @@ if (previewMode) {
  */
 
 if (outputPath) {
+  // Make sure the output dir exists or be created to avoid race conditions
+  fs.ensureDirSync(outputPath);
+
   if (!skipPublicAssets) {
     var publicAssets = path.join(__dirname, '..', 'public');
     debug('Copying public assets from "%s" to "%s"', publicAssets, outputPath);
     fs.copySync(publicAssets, outputPath);
-  } else {
-    // When the public assets is skipped, make sure the output dir
-    // exists or be created
-    fs.ensureDirSync(outputPath);
   }
 
   Docs.readConfig(configPaths, function(err, config) {
