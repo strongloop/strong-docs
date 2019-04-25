@@ -1,0 +1,60 @@
+body {
+    --color-blue: #009cff;
+    --color-blue-d: #3f5dff;
+    --color-blue-xd: #001956;
+    --color-gray: #a3a4a3;
+    --color-gray-d: #626262;
+    --color-gray-xd: #393939;
+    --color-white: #ffffff;
+    --color-white-d: #fbfcfc;
+    --color-white-xd: #f8fafa;
+    background-color: var(--color-white-xd);
+}
+
+a {
+    color: var(--color-blue-d);
+}
+  
+a:hover {
+    color: var(--color-blue-xd);
+}
+
+code {
+    color: var(--color-blue);
+}
+
+pre code {
+    background: var(--color-blue-xd);
+    color: #e0ffec;
+}
+
+.nav-pills a {
+    color: var(--color-blue-d);
+}
+
+.nav-pills> li.active> a, 
+.nav-pills> li.active> a:hover, 
+.nav-pills> li.active> a:focus {
+    color: var(--color-white);
+    background-color: var(--color-blue-d);
+}
+
+.nav-pills li > a:hover {
+    color: var(--color-blue-xd);
+    background-color: var(--color-white);
+}
+
+.navbar-inverse {
+    background-color: var(--color-white);
+    border-color: var(--color-gray);
+}
+
+.navbar-inverse .navbar-brand {
+    color: var(--color-gray-xd);
+}
+
+.navbar-inverse .navbar-brand:hover, 
+.navbar-inverse .navbar-brand:focus {
+    color: var(--color-blue-d);
+    background-color: transparent;
+}
