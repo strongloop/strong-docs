@@ -1,3 +1,8 @@
+// Copyright IBM Corp. 2013. All Rights Reserved.
+// Node module: strong-docs
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
+
 $(document).ready(function () {
   // Switch from empty anchors to id-ed headings
   $('a[name]').get().forEach(function (i) {

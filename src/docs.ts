@@ -1,3 +1,8 @@
+// Copyright IBM Corp. 2018. All Rights Reserved.
+// Node module: strong-docs
+// This file is licensed under the MIT License.
+// License text available at https://opensource.org/licenses/MIT
+
 import {exec} from 'child_process';
 import * as ejs from 'ejs';
 import * as fs from 'fs';
