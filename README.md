@@ -1,5 +1,9 @@
 ![Strong Docs](assets/logo.png)
 
+**This module is in Active LTS mode, new features are no longer accepted.**
+<br/>(See [Module Long Term Support Policy](#module-long-term-support-policy)
+below.)
+
 ## Overview
 
 Create a single page documentation site for your node.js module using a set of [documentation source files](#documentation-source-files) including **github flavored markdown** and **JSDoc annotated JavaScript**.
@@ -417,3 +421,17 @@ function promiseUnresolvable(arg, callback) {
 
 }
 ```
+
+## Module Long Term Support Policy
+
+This module adopts the [
+Module Long Term Support (LTS)](http://github.com/CloudNativeJS/ModuleLTS) policy,
+ with the following End Of Life (EOL) dates:
+
+| Version | Status          | Published | EOL      |
+| ------- | --------------- | --------- | -------- |
+| 4.x     | Active LTS      | Aug 2018  | Dec 2020 |
+| 3.x     | End-of-Life     | May 2018  | Aug 2019 |
+| 2.x     | End-of-Life     | May 2018  | Aug 2019 |
+
+Learn more about our LTS plan in [docs](https://loopback.io/doc/en/contrib/Long-term-support.html).
