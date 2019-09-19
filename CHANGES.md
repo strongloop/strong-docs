@@ -1,3 +1,17 @@
+2019-09-19, Version 4.2.1
+=========================
+
+ * chore: add LTS schedule (Diana Lau)
+
+ * chore: update CODEOWNERS (Diana Lau)
+
+ * enable stalebot (Diana Lau)
+
+ * chore: update copyrights years (Agnes Lin)
+
+ * update colour scheme (Nora)
+
+
 2019-04-11, Version 4.2.0
 =========================
 
