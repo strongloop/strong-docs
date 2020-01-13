@@ -4,7 +4,6 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import * as ejs from 'ejs';
-import * as hljs from 'highlight.js';
 import * as marked from 'marked';
 import * as path from 'path';
 import * as string from 'underscore.string';
@@ -12,6 +11,7 @@ import {Annotation} from './annotation';
 import {Docs} from './docs';
 import {Comment} from './dox';
 import {Options, Section} from './ts-helper';
+const hljs = require('highlight.js');
 
 const dox = require('dox');
 
