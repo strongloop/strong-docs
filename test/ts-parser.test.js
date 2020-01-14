@@ -66,7 +66,8 @@ describe('TypeScript Parser Test', function() {
     }
   );
 
-  it('should report errors if es2016 apis are used with es2015 tsconfig', function() {
+  // TypeScript 3.7.x no longer reports it as an error
+  it('should allow es2016 apis used with es2015 tsconfig', function() {
     var file = path.join(__dirname, 'fixtures/ts/Greeter.es2016.ts');
     var tsFiles = [file];
     var tsParser = new TSParser(tsFiles, {
@@ -74,10 +75,7 @@ describe('TypeScript Parser Test', function() {
       tsconfig,
     });
     var parsedData = tsParser.parse();
-    expect(parsedData.errors).to.have.length(1);
-    expect(parsedData.errors[0].messageText).to.eql(
-      "Property 'includes' does not exist on type 'string[]'."
-    );
+    expect(parsedData.errors).to.be.empty;
   });
 
   it('should allow Array.includes() with es2016 tsconfig', function() {

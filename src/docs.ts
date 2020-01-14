@@ -12,7 +12,7 @@ import {Doc} from './doc';
 import {AnyObject, Options, Section} from './ts-helper';
 import {TSParser} from './ts-parser';
 import {TSConstruct} from './ts-construct';
-const glob = require('glob').sync;
+import {sync as glob} from 'glob';
 
 const TaskEmitter = require('strong-task-emitter');
 const COMMENT_TEMPLATE = path.join(__dirname, '../templates/annotation.ejs');
@@ -277,8 +277,7 @@ export class Docs {
       content.forEach((p: string) => {
         if (typeof p === 'string') {
           let matched = Docs.findFiles(root || cwd, p);
-          console.log('matched: ', matched);
-          matched.forEach(function(f: any) {
+          matched.forEach(function(f) {
             if (matchedFiles.indexOf(f) === -1) {
               matchedFiles.push(f);
             }

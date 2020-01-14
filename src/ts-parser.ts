@@ -12,7 +12,7 @@ import {
 } from 'typedoc';
 import {TSConstruct} from './ts-construct';
 import {Node, Options, TSHelper, Section} from './ts-helper';
-import {Comment} from 'typedoc/dist/lib/models';
+import {Comment, ContainerReflection} from 'typedoc/dist/lib/models';
 
 marked.setOptions({
   highlight: function(code) {
@@ -59,7 +59,8 @@ export class TSParser {
         options[i] = config[i];
       }
     }
-    this.app = new Application(options);
+    this.app = new Application();
+    this.app.bootstrap(options);
   }
 
   // Override typedoc.Application.convert() to get errors
@@ -89,10 +90,8 @@ export class TSParser {
         'TypeScript compilation fails. See error messages in the log above.'
       );
     } else {
-      // Replace usage of deprecated `project.toObject()`, which is broken with typedoc@0.10.0.
-      let projectObject = this.app.serializer.projectToObject(project);
       let exportedConstructs = this.findExportedConstructs(
-        projectObject,
+        project,
         this.filePaths
       );
       exportedConstructs.forEach((node: Node) => {
@@ -157,9 +156,16 @@ export class TSParser {
     };
   }
 
-  findExportedConstructs(construct: Node, filePaths: string[]): Node[] {
-    let exportedConstructs: Node[] = [];
-    function findConstructs(node: Node, files: string[], parent?: Reflection) {
+  findExportedConstructs(
+    construct: ContainerReflection,
+    filePaths: string[]
+  ): ContainerReflection[] {
+    let exportedConstructs: ContainerReflection[] = [];
+    function findConstructs(
+      node: ContainerReflection,
+      files: string[],
+      parent?: Reflection
+    ) {
       if (parent) {
         node.parent = parent;
       }

@@ -11,7 +11,7 @@ import {Annotation} from './annotation';
 import {Docs} from './docs';
 import {Comment} from './dox';
 import {Options, Section} from './ts-helper';
-const hljs = require('highlight.js');
+import * as hljs from 'highlight.js';
 
 const dox = require('dox');
 
