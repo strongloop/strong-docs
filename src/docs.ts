@@ -6,13 +6,13 @@
 import {exec} from 'child_process';
 import * as ejs from 'ejs';
 import * as fs from 'fs';
-import {sync as glob} from 'glob';
 import * as path from 'path';
 import * as _ from 'underscore.string';
 import {Doc} from './doc';
 import {AnyObject, Options, Section} from './ts-helper';
 import {TSParser} from './ts-parser';
 import {TSConstruct} from './ts-construct';
+import {sync as glob} from 'glob';
 
 const TaskEmitter = require('strong-task-emitter');
 const COMMENT_TEMPLATE = path.join(__dirname, '../templates/annotation.ejs');
