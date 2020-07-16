@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json --outdir lib",
-    "prepare": "npm run build",
+    "prepare": "npm run snyk-protect && npm run build",
     "lint": "npm run prettier:check && npm run tslint",
     "lint:fix": "npm run prettier:fix && npm run tslint:fix",
     "prettier:cli": "prettier \"**/*.ts\" \"**/*.js\"",
@@ -21,7 +21,8 @@
     "tslint:fix": "npm run tslint -- --fix",
     "pretest": "npm run build",
     "posttest": "npm run lint",
-    "test": "mocha --require source-map-support/register --timeout 60000"
+    "test": "mocha --require source-map-support/register --timeout 60000",
+    "snyk-protect": "snyk protect"
   },
   "dependencies": {
     "debug": "^4.1.1",
@@ -36,7 +37,8 @@
     "optimist": "^0.6.0",
     "strong-task-emitter": "^0.0.8",
     "typedoc": "^0.16.2",
-    "underscore.string": "^3.3.4"
+    "underscore.string": "^3.3.4",
+    "snyk": "^1.362.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
@@ -57,5 +59,6 @@
     "sdocs": "./bin/cli.js"
   },
   "license": "MIT",
-  "author": "IBM Corp."
+  "author": "IBM Corp.",
+  "snyk": true
 }
