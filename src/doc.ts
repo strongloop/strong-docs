@@ -31,7 +31,7 @@ const markedOptions = {
   smartypants: false,
   langPrefix: 'lang-',
   // available languages http://softwaremaniacs.org/media/soft/highlight/test.html
-  highlight: function(code: string, lang: string) {
+  highlight: function (code: string, lang: string) {
     let result;
 
     try {
@@ -91,10 +91,10 @@ export class Doc {
     try {
       if (isJS) {
         this.parseJavaScript();
-        this.classes = this.classes.sort(function(a, b) {
+        this.classes = this.classes.sort(function (a, b) {
           return a.section!.title.localeCompare(b.section!.title);
         });
-        this.classes.forEach(function(classAnnotation) {
+        this.classes.forEach(function (classAnnotation) {
           renderClass(classAnnotation);
           if (
             'classDesc' in classAnnotation &&
@@ -103,12 +103,12 @@ export class Doc {
             docs.renderedClasses.push(classAnnotation.classDesc);
           }
           classAnnotation.methods
-            .sort(function(a, b) {
+            .sort(function (a, b) {
               const x = a.section!.title.split('.').pop()!;
               const y = b.section!.title.split('.').pop()!;
               return x.localeCompare(y);
             })
-            .forEach(function(annot) {
+            .forEach(function (annot) {
               renderMethod(annot, docs.classes[classAnnotation.classDesc]);
             });
         });
@@ -204,8 +204,9 @@ export class Doc {
     let finalTokens: marked.TokensList = [] as any;
 
     for (const token of tokens) {
-      if (token.type === 'heading') {
-        let rawHeader = token.text;
+      const heading = token as marked.Tokens.Heading;
+      if (heading.type === 'heading') {
+        let rawHeader = heading.text;
 
         // remove markdown formatting
         rawHeader = rawHeader.replace(/\*\*/g, '');
@@ -214,15 +215,18 @@ export class Doc {
 
         sections.push({
           title: stringToTitle(rawHeader),
-          depth: token.depth,
+          depth: heading.depth,
           anchor: anchor,
         });
 
-        finalTokens.push({
+        const html: marked.Tokens.HTML = {
           type: 'html',
           text: '<a name="' + anchor + '"></a>',
+          raw: '<a name="' + anchor + '"></a>',
           pre: false,
-        });
+        };
+
+        finalTokens.push(html);
       }
 
       finalTokens.push(token);
@@ -233,7 +237,7 @@ export class Doc {
   }
 
   getClasses() {
-    return this.classes.sort(function(a, b) {
+    return this.classes.sort(function (a, b) {
       const x = a.section.title.split('Class:').pop()!;
       const y = b.section.title.split('Class:').pop()!;
       return x.localeCompare(y);

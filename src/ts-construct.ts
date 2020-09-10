@@ -73,7 +73,7 @@ export class TSConstruct {
         filename: TS_OBJECT_LITERAL_TEMPLATE,
         content: fs.readFileSync(TS_OBJECT_LITERAL_TEMPLATE, 'utf8'),
       },
-      module: {
+      namespace: {
         filename: TS_NAMESPACE_TEMPLATE,
         content: fs.readFileSync(TS_NAMESPACE_TEMPLATE, 'utf8'),
       },

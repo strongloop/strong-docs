@@ -17,59 +17,59 @@ var SAMPLE = [
 ];
 var Docs = require('../');
 
-describe('Docs', function() {
-  it('should load files from the given source', function(done) {
+describe('Docs', function () {
+  it('should load files from the given source', function (done) {
     Docs.parse(
       {
         content: SAMPLE,
         root: __dirname,
       },
-      function(err, docs) {
+      function (err, docs) {
         assert.equal(docs.content.length, 5);
         done();
       }
     );
   });
 
-  it('should parse sections from each file', function(done) {
+  it('should parse sections from each file', function (done) {
     Docs.parse(
       {
         content: SAMPLE,
         root: __dirname,
       },
-      function(err, docs) {
+      function (err, docs) {
         assert.equal(docs.sections.length, 19);
         done();
       }
     );
   });
 
-  it('ignores error for config with section placeholders only', function(done) {
+  it('ignores error for config with section placeholders only', function (done) {
     Docs.parse(
       {
         content: [{title: 'a-title'}],
       },
-      function(err) {
+      function (err) {
         assert(err, 'Docs.parse failed with an error');
         done();
       }
     );
   });
 
-  it('should include documentation from external file', function(done) {
+  it('should include documentation from external file', function (done) {
     Docs.toHtml(
       {
         content: ['fixtures/js/main-class.js', 'fixtures/js/class-method.js'],
         root: __dirname,
       },
-      function(err, docs) {
+      function (err, docs) {
         assert.equal(docs.split('app.middleware').length, 3);
         done();
       }
     );
   });
 
-  it('should call "init" script', function(done) {
+  it('should call "init" script', function (done) {
     try {
       fs.unlinkSync(path.resolve(__dirname, 'fixtures/generated.md'));
     } catch (e) {
@@ -86,7 +86,7 @@ describe('Docs', function() {
         init: 'node -e "(' + generate.toString() + ')()"',
         content: ['fixtures/generated.md'],
       },
-      function(err, docs) {
+      function (err, docs) {
         if (err) return done(err);
         assert.equal(docs.sections.length, 1);
         done();
@@ -94,7 +94,7 @@ describe('Docs', function() {
     );
   });
 
-  it('should have unique anchors', function() {
+  it('should have unique anchors', function () {
     var docs = new Docs();
     var samples = [
       'Model.validatesNumericalityOf',
@@ -116,18 +116,18 @@ describe('Docs', function() {
       'foo-bar-1',
     ];
 
-    samples.forEach(function(s, i) {
+    samples.forEach(function (s, i) {
       assert.equal(docs.getUniqueAnchor(s), expected[i]);
     });
   });
 
-  it('should be able to generate html', function(done) {
+  it('should be able to generate html', function (done) {
     Docs.toHtml(
       {
         content: SAMPLE,
         root: __dirname,
       },
-      function(err, html) {
+      function (err, html) {
         assert(!err);
         var doctype = '<!DOCTYPE html>';
         assert.equal(html.substr(0, doctype.length), doctype);
@@ -136,13 +136,13 @@ describe('Docs', function() {
     );
   });
 
-  it('should error when a file does not exist', function(done) {
+  it('should error when a file does not exist', function (done) {
     Docs.parse(
       {
         content: ['does-not-exist'],
         root: __dirname,
       },
-      function(err, docs) {
+      function (err, docs) {
         assert(err);
         assert.equal(err.message, 'no matching files were found');
         done();
@@ -150,14 +150,14 @@ describe('Docs', function() {
     );
   });
 
-  describe('.readConfig(options, fn)', function() {
-    it('should read a config file', function(done) {
+  describe('.readConfig(options, fn)', function () {
+    it('should read a config file', function (done) {
       Docs.readConfig(
         {
           configPath: 'docs.json',
           packagePath: 'package.json',
         },
-        function(err, config) {
+        function (err, config) {
           if (err) {
             done(err);
           } else {
@@ -171,28 +171,28 @@ describe('Docs', function() {
     });
   });
 
-  describe('@options', function() {
-    it('should define a param of type object with properties following', function(done) {
+  describe('@options', function () {
+    it('should define a param of type object with properties following', function (done) {
       Docs.parse(
         {
           content: ['fixtures/js/complex-attrs.js'],
           root: __dirname,
         },
-        function(err, docs) {
+        function (err, docs) {
           done();
         }
       );
     });
   });
 
-  describe('@descriptions', function() {
-    it('should be optional', function(done) {
+  describe('@descriptions', function () {
+    it('should be optional', function (done) {
       Docs.parse(
         {
           content: ['fixtures/js/optional-description.js'],
           root: __dirname,
         },
-        function(err, docs) {
+        function (err, docs) {
           assert(docs.content[0].methods[0]);
           done();
         }
@@ -200,14 +200,14 @@ describe('Docs', function() {
     });
   });
 
-  describe('complex headers', function() {
-    it('should not include markdown', function(done) {
+  describe('complex headers', function () {
+    it('should not include markdown', function (done) {
       Docs.parse(
         {
           content: ['fixtures/complex-headers.md'],
           root: __dirname,
         },
-        function(err, docs) {
+        function (err, docs) {
           var sections = docs.content[0].sections;
           assert.equal(sections[0].title, 'complex-headers');
           assert.equal(sections[1].title, 'link');
@@ -221,15 +221,15 @@ describe('Docs', function() {
     });
   });
 
-  describe('ngdoc flavour', function() {
-    it('should include @description', function(done) {
-      parseNgDocSourceFile('fixtures/js/ngdoc.js', done, function(annotation) {
+  describe('ngdoc flavour', function () {
+    it('should include @description', function (done) {
+      parseNgDocSourceFile('fixtures/js/ngdoc.js', done, function (annotation) {
         expect(annotation.html).to.contain('Some description');
       });
     });
 
-    it('should handle multi-param function type', function(done) {
-      parseNgDocSourceFile('fixtures/js/ngdoc.js', done, function(annotation) {
+    it('should handle multi-param function type', function (done) {
+      parseNgDocSourceFile('fixtures/js/ngdoc.js', done, function (annotation) {
         // @param {String|Number}
         expect(annotation.args[0].types).to.eql(['String', 'Number']);
         // @param {function(Error|undefined, Object|undefined)}
@@ -239,38 +239,38 @@ describe('Docs', function() {
       });
     });
 
-    describe('@promise', function() {
-      it('should be supported', function(done) {
+    describe('@promise', function () {
+      it('should be supported', function (done) {
         parseNgDocSourceFile(
           'fixtures/js/promise-standalone.js',
           done,
-          function(annotation) {
+          function (annotation) {
             assertPromise(annotation, ['Array'], ['Array']);
           }
         );
       });
 
-      it('should be generated from a callback', function(done) {
-        parseNgDocSourceFile('fixtures/js/promise-callback.js', done, function(
+      it('should be generated from a callback', function (done) {
+        parseNgDocSourceFile('fixtures/js/promise-callback.js', done, function (
           annotation
         ) {
           assertPromise(annotation, ['Array'], ['Object']);
         });
       });
 
-      it('should be generated from a custom description', function(done) {
-        parseNgDocSourceFile('fixtures/js/promise-custom.js', done, function(
+      it('should be generated from a custom description', function (done) {
+        parseNgDocSourceFile('fixtures/js/promise-custom.js', done, function (
           annotation
         ) {
           assertPromise(annotation, ['Array'], ['String']);
         });
       });
 
-      it('should include a warning when unresolvable', function(done) {
+      it('should include a warning when unresolvable', function (done) {
         parseNgDocSourceFile(
           'fixtures/js/promise-unresolvable.js',
           done,
-          function(annotation) {
+          function (annotation) {
             expect(annotation.promise.warning).to.not.be.undefined;
             expect(annotation.promise.warning).to.contain(
               'Promise cannot be resolved in'
@@ -288,7 +288,7 @@ function parseNgDocSourceFile(file, done, assertion) {
       content: [file],
       root: __dirname,
     },
-    function(err, docs) {
+    function (err, docs) {
       if (err) return done(err);
       var annotation = docs.content[0].sections[0].annotation;
       done(assertion(annotation));

@@ -15,7 +15,7 @@ import {Node, Options, TSHelper, Section} from './ts-helper';
 import {Comment, ContainerReflection} from 'typedoc/dist/lib/models';
 
 marked.setOptions({
-  highlight: function(code) {
+  highlight: function (code) {
     return require('highlight.js').highlightAuto(code).value;
   },
 });
@@ -100,7 +100,7 @@ export class TSParser {
           node.kind === ReflectionKind.Interface ||
           node.kind === ReflectionKind.Function ||
           node.kind === ReflectionKind.ObjectLiteral ||
-          node.kind === ReflectionKind.Module ||
+          node.kind === ReflectionKind.Namespace ||
           node.kind === ReflectionKind.Variable ||
           node.kind === ReflectionKind.Enum ||
           node.kind === ReflectionKind.TypeAlias
@@ -120,7 +120,7 @@ export class TSParser {
             (node.kind === ReflectionKind.Class ||
               node.kind === ReflectionKind.Interface ||
               node.kind === ReflectionKind.ObjectLiteral ||
-              node.kind === ReflectionKind.Module ||
+              node.kind === ReflectionKind.Namespace ||
               node.kind === ReflectionKind.Enum) &&
             children &&
             children.length > 0
@@ -169,14 +169,14 @@ export class TSParser {
       if (parent) {
         node.parent = parent;
       }
-      // Global = 0, ExternalModule = 1
+      // Global = 0, Module = 1
       if (
         node.kind === ReflectionKind.Global ||
-        node.kind === ReflectionKind.ExternalModule
+        node.kind === ReflectionKind.Module
       ) {
         let children = node.children;
         if (children && children.length > 0) {
-          children.forEach(function(child) {
+          children.forEach(function (child) {
             findConstructs(child, files, node);
           });
         }
@@ -186,19 +186,19 @@ export class TSParser {
             node.kind === ReflectionKind.Interface ||
             node.kind === ReflectionKind.TypeAlias ||
             node.kind === ReflectionKind.ObjectLiteral ||
-            node.kind === ReflectionKind.Module ||
+            node.kind === ReflectionKind.Namespace ||
             node.kind === ReflectionKind.Variable ||
             node.kind === ReflectionKind.Enum ||
             node.kind === ReflectionKind.Function) &&
           node.flags.isExported &&
           files.find(
-            filePath =>
+            (filePath) =>
               node.sources != null &&
               node.sources[0].fileName.split('/').pop() ===
                 filePath.split('/').pop()
           )
         ) {
-          if (parent && parent.kind === ReflectionKind.Module) {
+          if (parent && parent.kind === ReflectionKind.Namespace) {
             // Set the node name with its parent namespace
             node.name = parent ? parent.name + '.' + node.name : node.name;
           }
@@ -217,7 +217,7 @@ function getQualifiedName(node: Node) {
   while (current) {
     if (
       current.kind === ReflectionKind.Global ||
-      current.kind === ReflectionKind.ExternalModule
+      current.kind === ReflectionKind.Module
     ) {
       // Skip global/external module nodes
       break;
@@ -267,7 +267,7 @@ function processMarkdown(node: Node) {
       markComment(tsNode.comment);
     }
     if (tsNode.signatures) {
-      tsNode.signatures.forEach(signature => {
+      tsNode.signatures.forEach((signature) => {
         if (signature.comment) {
           markComment(signature.comment);
         }

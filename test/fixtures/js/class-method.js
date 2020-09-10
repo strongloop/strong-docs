@@ -13,4 +13,4 @@ var proto = {};
  *
  * @header app.middleware(name, handler)
  */
-proto.middleware = function(name, paths, handler) {};
+proto.middleware = function (name, paths, handler) {};
