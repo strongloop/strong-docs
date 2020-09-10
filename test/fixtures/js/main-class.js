@@ -19,4 +19,4 @@ function App() {
  * @header app.model
  */
 
-app.model = function(Model, config) {};
+app.model = function (Model, config) {};

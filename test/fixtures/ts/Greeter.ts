@@ -48,7 +48,7 @@ export namespace param {
   }
 
   export const path = {
-    number: function() {},
-    boolean: function() {},
+    number: function () {},
+    boolean: function () {},
   };
 }

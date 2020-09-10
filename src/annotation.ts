@@ -182,7 +182,7 @@ export class Annotation {
         );
       }
     },
-    property: function(tag: Tag) {
+    property: function (tag: Tag) {
       if (!tag.types) {
         this.parseTagForType(tag);
       }
@@ -233,7 +233,7 @@ export class Annotation {
     let docs = (this.docs = doc.docs);
     let attrs: AnyObject = (this.attrs = {});
 
-    tags.forEach(tag => {
+    tags.forEach((tag) => {
       if (tag.type) {
         tag.type = Annotation.aliases[tag.type] || tag.type;
       }
@@ -251,8 +251,8 @@ export class Annotation {
     });
 
     let desc =
-        attrs.description /* ngdoc style */ ||
-        (comment.description && comment.description.full) /* jsdoc/dox style */;
+      attrs.description /* ngdoc style */ ||
+      (comment.description && comment.description.full); /* jsdoc/dox style */
 
     if (attrs.ignore || attrs.private || comment.ignore) {
       this.ignore = true;
@@ -272,7 +272,7 @@ export class Annotation {
     let anchorId = '';
     let memberOf = attrs.memberof;
     if (args) {
-      args.forEach(arg => {
+      args.forEach((arg) => {
         if (!arg.types) return;
         // workaround for dox splitting function types on comma
         // E.g. @param {function(Error=,Object=)}
@@ -330,12 +330,12 @@ export class Annotation {
         "')";
     } else if (Array.isArray(args) && args.length && name) {
       let argNames = args
-        .filter(t => {
+        .filter((t) => {
           // do not include `options.foo`
           // in header arg names
           return (t.name || '').indexOf('.') === -1;
         })
-        .map(t => t.name)
+        .map((t) => t.name)
         .join(', ');
 
       name = name.replace(/\(\)\s*$/, '');
@@ -569,7 +569,7 @@ function parseTypes(str?: string) {
 
 function mapStarToAny(tag: Tag) {
   if (tag.types) {
-    tag.types = tag.types.map(function(orig) {
+    tag.types = tag.types.map(function (orig) {
       if (orig === '*') {
         orig = 'Any';
       }

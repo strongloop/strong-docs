@@ -60,7 +60,7 @@ function getType(type: Type) {
 function getTypeArguments(type: ReferenceType) {
   if (Array.isArray(type.typeArguments)) {
     let typeArgs: string[] = [];
-    type.typeArguments.forEach(function(typeArg) {
+    type.typeArguments.forEach(function (typeArg) {
       typeArgs.push(TSHelper.getTypeStr(typeArg));
     });
     return '&lt;' + typeArgs.join(', ') + '&gt;';
@@ -73,7 +73,7 @@ function getUnionType(type: UnionType) {
   if (type.type === 'union') {
     if (Array.isArray(type.types)) {
       let unionTypes: string[] = [];
-      type.types.forEach(function(unionType) {
+      type.types.forEach(function (unionType) {
         unionTypes.push(TSHelper.getTypeStr(unionType));
       });
       return unionTypes.join(' | ');
@@ -114,7 +114,7 @@ export class TSHelper {
     let args: string[] = [];
     params = params || undefined;
     if (params && params.length > 0) {
-      params.forEach(function(param) {
+      params.forEach(function (param) {
         if (!param.type) return;
         let arg = '';
         if (param.type.type === 'reflection') {

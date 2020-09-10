@@ -83,7 +83,7 @@ function getAssetData(config) {
     assetsRoot = path.dirname(configPaths.configPath);
   }
   debug('Root directory for assets: %s', assetsRoot);
-  Object.keys(assets).forEach(function(key) {
+  Object.keys(assets).forEach(function (key) {
     assets[key] = path.resolve(assetsRoot, assets[key]);
   });
 
@@ -99,23 +99,23 @@ if (previewMode) {
   var app = express();
 
   // build the preview app on every request
-  app.use(function(req, res, next) {
+  app.use(function (req, res, next) {
     var sapp = express();
 
-    Docs.readConfig(configPaths, function(err, config) {
+    Docs.readConfig(configPaths, function (err, config) {
       if (err) return next(err);
       debug('Config object: %j', config);
       config = configureTypeDoc(config);
       var assets = getAssetData(config);
 
       if (assets) {
-        Object.keys(assets).forEach(function(key) {
+        Object.keys(assets).forEach(function (key) {
           sapp.use(key, express.static(assets[key]));
         });
       }
 
-      sapp.get('/', function(req, res) {
-        Docs.toHtml(config, function(err, html) {
+      sapp.get('/', function (req, res) {
+        Docs.toHtml(config, function (err, html) {
           if (err) {
             next(err);
           } else {
@@ -130,7 +130,7 @@ if (previewMode) {
 
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
-  app.listen(port, function() {
+  app.listen(port, function () {
     if (process.stdout.isTTY) {
       console.log('Preview your docs @ http://localhost:' + port);
       console.log();
@@ -155,7 +155,7 @@ if (outputPath) {
     fs.copySync(publicAssets, outputPath);
   }
 
-  Docs.readConfig(configPaths, function(err, config) {
+  Docs.readConfig(configPaths, function (err, config) {
     if (err) {
       console.error(err);
       process.exit(1);
@@ -165,7 +165,7 @@ if (outputPath) {
     var assets = getAssetData(config);
 
     if (assets) {
-      Object.keys(assets).forEach(function(key) {
+      Object.keys(assets).forEach(function (key) {
         const source = assets[key];
         if (!fs.existsSync(source)) {
           console.warn(
@@ -195,7 +195,7 @@ if (outputPath) {
       });
     }
 
-    Docs.toHtml(config, function(err, html) {
+    Docs.toHtml(config, function (err, html) {
       if (err) {
         console.error(err);
         process.exit(1);

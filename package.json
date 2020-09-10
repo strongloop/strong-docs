@@ -3,7 +3,7 @@
   "description": "Sleek, intuitive, and powerful documentation site generator",
   "version": "4.2.1",
   "engines": {
-    "node": ">=8"
+    "node": ">=10.16"
   },
   "repository": {
     "type": "git",
@@ -26,32 +26,32 @@
   "dependencies": {
     "debug": "^4.1.1",
     "dox": "^0.9.0",
-    "ejs": "^3.0.1",
+    "ejs": "^3.1.5",
     "express": "^4.16.3",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.1",
     "glob": "^7.1.2",
     "highlight.js": "^9.17.1",
     "markdown": "^0.5.0",
-    "marked": "^0.8.0",
+    "marked": "^1.1.1",
     "optimist": "^0.6.0",
     "strong-task-emitter": "^0.0.8",
-    "typedoc": "^0.16.2",
+    "typedoc": "^0.19.1",
     "underscore.string": "^3.3.4"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
-    "@types/ejs": "^3.0.0",
-    "@types/glob": "^7.1.1",
-    "@types/highlight.js": "^9.12.3",
-    "@types/marked": "^0.7.2",
+    "@types/ejs": "^3.0.4",
+    "@types/glob": "^7.1.3",
+    "@types/highlight.js": "^9.12.4",
+    "@types/marked": "^1.1.0",
     "@types/node": "^10.17.13",
     "@types/underscore.string": "0.0.38",
     "chai": "^4.1.0",
-    "mocha": "^7.0.0",
-    "prettier": "^1.19.1",
-    "source-map-support": "^0.5.16",
-    "tslint": "^5.20.1",
-    "typescript": "~3.7.4"
+    "mocha": "^8.1.3",
+    "prettier": "^2.1.1",
+    "source-map-support": "^0.5.19",
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.2"
   },
   "bin": {
     "sdocs": "./bin/cli.js"

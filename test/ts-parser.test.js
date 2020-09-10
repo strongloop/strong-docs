@@ -9,11 +9,11 @@ var assert = require('assert');
 var expect = require('chai').expect;
 var TSParser = require('../lib/ts-parser').TSParser;
 
-describe('TypeScript Parser Test', function() {
+describe('TypeScript Parser Test', function () {
   var tsconfig = path.join(__dirname, 'tsconfig.json');
   var tsconfig_es2016 = path.join(__dirname, 'tsconfig.es2016.json');
 
-  it('should parse TS file', function() {
+  it('should parse TS file', function () {
     var file = path.join(__dirname, 'fixtures/ts/Greeter.ts');
     var tsFiles = [file];
     var tsParser = new TSParser(tsFiles, {
@@ -24,17 +24,17 @@ describe('TypeScript Parser Test', function() {
     expect(parsedData.sections).to.have.length(11);
     expect(parsedData.constructs).to.have.length(3);
     expect(
-      parsedData.constructs.map(function(c) {
+      parsedData.constructs.map(function (c) {
         return c.node.name;
       })
     ).to.eql(['param', 'Greeter', 'PathParameterValues']);
     expect(parsedData.errors).to.have.length(0);
-    var greeterClass = parsedData.constructs.filter(function(c) {
+    var greeterClass = parsedData.constructs.filter(function (c) {
       return c.node.name === 'Greeter';
     })[0].node;
     expect(greeterClass.children).have.length(6);
     expect(
-      greeterClass.children.map(function(c) {
+      greeterClass.children.map(function (c) {
         return c.anchorId;
       })
     ).to.eql([
@@ -52,7 +52,7 @@ describe('TypeScript Parser Test', function() {
   it.skip(
     'should exclude constructs that are not exported' +
       ' (https://github.com/TypeStrong/typedoc/pull/694)',
-    function() {
+    function () {
       var file = path.join(__dirname, 'fixtures/ts/Greeter.ts');
       var tsFiles = [file];
       var tsParser = new TSParser(tsFiles, {
@@ -67,7 +67,7 @@ describe('TypeScript Parser Test', function() {
   );
 
   // TypeScript 3.7.x no longer reports it as an error
-  it('should allow es2016 apis used with es2015 tsconfig', function() {
+  it('should allow es2016 apis used with es2015 tsconfig', function () {
     var file = path.join(__dirname, 'fixtures/ts/Greeter.es2016.ts');
     var tsFiles = [file];
     var tsParser = new TSParser(tsFiles, {
@@ -78,7 +78,7 @@ describe('TypeScript Parser Test', function() {
     expect(parsedData.errors).to.be.empty;
   });
 
-  it('should allow Array.includes() with es2016 tsconfig', function() {
+  it('should allow Array.includes() with es2016 tsconfig', function () {
     var file = path.join(__dirname, 'fixtures/ts/Greeter.es2016.ts');
     var tsFiles = [file];
     var tsParser = new TSParser(tsFiles, {
@@ -91,7 +91,7 @@ describe('TypeScript Parser Test', function() {
     expect(parsedData.errors).to.have.length(0);
   });
 
-  it('should allow Array.includes() with tstarget="es2016"', function() {
+  it('should allow Array.includes() with tstarget="es2016"', function () {
     var file = path.join(__dirname, 'fixtures/ts/Greeter.es2016.ts');
     var tsFiles = [file];
     var tsParser = new TSParser(tsFiles, {

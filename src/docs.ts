@@ -99,7 +99,7 @@ export class Docs {
 
     if (this.config.order) {
       // resolve order paths
-      this.config.order = this.config.order.map(function(p: string) {
+      this.config.order = this.config.order.map(function (p: string) {
         return path.resolve(root, p);
       });
     }
@@ -128,13 +128,13 @@ export class Docs {
 
   static parse(config: DocsConfig, fn: Callback<Docs>) {
     let docs = new Docs(config);
-    docs.parse(function(err?: Error) {
+    docs.parse(function (err?: Error) {
       fn(err, err ? undefined : docs);
     });
   }
 
   static readJSON(file: string, fn: Callback<AnyObject>) {
-    fs.readFile(file, 'utf8', function(err, str) {
+    fs.readFile(file, 'utf8', function (err, str) {
       let isEmptyFile =
         (err && err.code === 'ENOENT') || str.replace(/\s/g, '') === '';
       let seriousError = err && !isEmptyFile;
@@ -171,14 +171,14 @@ export class Docs {
     let configPath = options.configPath || 'docs.json';
     let packagePath = options.packagePath || 'package.json';
 
-    Docs.readJSON(configPath, function(err, config: DocsConfig) {
+    Docs.readJSON(configPath, function (err, config: DocsConfig) {
       if (err) {
         err.message = 'Could not load config data: ' + err.message;
         fn(err);
       } else {
         // default config
         config = config || {};
-        Docs.readJSON(packagePath, function(err2, pkg) {
+        Docs.readJSON(packagePath, function (err2, pkg) {
           if (err2) {
             err2.message = 'Could not load package data: ' + err2.message;
             fn(err2);
@@ -228,7 +228,7 @@ export class Docs {
           contents = files[f];
           if (this.hasExt(f)) {
             let doc = new Doc(f, contents, path.extname(f) === '.js', self);
-            doc.classes.forEach(function(c) {
+            doc.classes.forEach(function (c) {
               if (!(c.classDesc in self.classes)) {
                 self.classes[c.classDesc] = doc;
               }
@@ -246,7 +246,7 @@ export class Docs {
           sections: parsedData.sections,
           html: '',
         };
-        doc.classes.forEach(function(tsConstruct) {
+        doc.classes.forEach(function (tsConstruct) {
           doc.html += tsConstruct.render();
         });
         self.content.push(doc);
@@ -256,7 +256,7 @@ export class Docs {
     });
 
     te.on('readdir', (f: string, dir: string[]) => {
-      dir.forEach(function(df) {
+      dir.forEach(function (df) {
         te.task(fs, 'stat', path.join(f, df));
       });
     });
@@ -277,7 +277,7 @@ export class Docs {
       content.forEach((p: string) => {
         if (typeof p === 'string') {
           let matched = Docs.findFiles(root || cwd, p);
-          matched.forEach(function(f) {
+          matched.forEach(function (f) {
             if (matchedFiles.indexOf(f) === -1) {
               matchedFiles.push(f);
             }
@@ -394,12 +394,12 @@ export class Docs {
     let template =
       config.template || path.join(__dirname, '..', 'templates', 'docs.ejs');
 
-    Docs.parse(config, function(err: Error | undefined, docs: Docs) {
+    Docs.parse(config, function (err: Error | undefined, docs: Docs) {
       if (err) {
         return fn(err);
       }
 
-      ejs.renderFile(template, {docs: docs}, function(err2, html) {
+      ejs.renderFile(template, {docs: docs}, function (err2, html) {
         if (err2) {
           fn(err2);
         } else {
@@ -453,7 +453,7 @@ export class Docs {
 
   getAllMarkdown() {
     return this.content
-      .filter(doc => {
+      .filter((doc) => {
         return !doc.isJS;
       })
       .sort(alpha);
@@ -469,7 +469,7 @@ export class Docs {
 
   getAllModules() {
     return this.content
-      .filter(function(doc) {
+      .filter(function (doc) {
         return doc.isJS;
       })
       .sort(alpha);
