@@ -3,7 +3,7 @@
   "description": "Sleek, intuitive, and powerful documentation site generator",
   "version": "4.2.1",
   "engines": {
-    "node": ">=8"
+    "node": ">=10.16"
   },
   "repository": {
     "type": "git",
